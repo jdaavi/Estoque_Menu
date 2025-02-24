@@ -26,4 +26,4 @@ def login():
         return "Usuário ou senha incorretos"  # Exibe erro em caso de falha no login
 
 if __name__ == '__main__':
-    app.run(host='10.10.10.194', port=5000, debug=True)
+    app.run(host='10.10.10.107', port=5000, debug=True)
