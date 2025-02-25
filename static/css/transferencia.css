@@ -1,0 +1,88 @@
+/* transferencia.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ac1a1a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    background-color: #9b1818;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-voltar i {
+    margin-right: 10px;
+}
+
+.transferencia-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #8f1010;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para os ícones, se você quiser usá-los ao lado dos campos */
+.input-wrapper i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #333;
+}

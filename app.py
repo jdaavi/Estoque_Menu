@@ -20,6 +20,10 @@ def estoque():
 def financeiro():
     return render_template('financeiro.html')
 
+@app.route('/transferencia')
+def transferencia():
+    return render_template('transferencia.html')
+
 @app.route('/sair')
 def sair():
     return redirect(url_for('inicio'))
@@ -39,4 +43,4 @@ def login():
     
 
 if __name__ == '__main__':
-    app.run(host='10.10.10.107', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

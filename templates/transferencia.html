@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transferência Bancária</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/transferencia.css') }}">
+</head>
+<body>
+
+    <!-- Botão para Voltar à Página Financeira -->
+    <a href="/inicio" class="btn-voltar">
+        <i class="ri-arrow-left-circle-fill"></i> Voltar para o Financeiro
+    </a>
+
+    <header class="header">
+        <h2>Transferência Bancária</h2>
+    </header>
+
+    <!-- Formulário de Transferência -->
+    <div class="transferencia-container">
+        <form id="formTransferencia">
+            <!-- Tipo de Transferência -->
+            <div class="input-wrapper">
+                <label for="tipoTransferencia">Tipo de Transferência:</label>
+                <select id="tipoTransferencia">
+                    <option value="pagar">Conta a Pagar</option>
+                    <option value="receber">Conta a Receber</option>
+                </select>
+            </div>
+
+            <!-- Valor -->
+            <div class="input-wrapper">
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" required placeholder="Digite o valor da transferência">
+            </div>
+
+            <!-- Conta -->
+            <div class="input-wrapper">
+                <label for="conta">Conta:</label>
+                <input type="text" id="conta" required placeholder="Número da Conta">
+            </div>
+
+            <!-- Data de Pagamento -->
+            <div class="input-wrapper">
+                <label for="dataPagamento">Data de Pagamento:</label>
+                <input type="date" id="dataPagamento" required>
+            </div>
+
+            <!-- Botão de Confirmação -->
+            <div class="input-wrapper">
+                <button type="submit" class="btn btn-primary">Confirmar Transferência</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/transferencias.js"></script>
+</body>
+</html>

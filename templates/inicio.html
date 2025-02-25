@@ -29,6 +29,38 @@
         text-align: center;
       }
 
+      header .hero-image {
+        min-width: 100px;
+        min-height: 100px;
+        max-width: 100px;
+        max-height: 100px;
+        background-image: url("/static/img/Logo\ menu.png");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      header .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .nav__logo img {
+        width: 200px;
+        height: auto;
+      }
+
+      @media (max-width: 700px) {
+       .nav__logo img {
+        width: 50px;
+       }
+      }
+
     </style>
   </head>
 
@@ -36,9 +68,11 @@
     <header class="header">
       <nav class="nav container">
         <div class="nav__data">
-          <a href="#" class="nav__logo">
-            <i class="ri-planet-line"></i> Logo
-          </a>
+
+          <div class="hero-image">
+            <div class="hero-content">
+            </div>
+            </div>
 
           <div class="nav__toggle" id="nav-toggle">
             <i class="ri-menu-line nav__burger"></i>
