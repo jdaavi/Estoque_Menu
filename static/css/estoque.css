@@ -60,7 +60,8 @@ body {
 .sair {
     position: absolute;
     bottom: 20px;
-    width: 200px;
+    width: 100px;
+    left: 75px;
     background-color: #000000;
     border-radius: 25px; /* Mais arredondado */
     padding: 10px;
@@ -69,6 +70,19 @@ body {
 
 .sair:hover {
     background-color: #000000;
+}
+
+.fade-out {
+    animation: fadeOut 0.5 ease-out forwards;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Conteúdo principal */

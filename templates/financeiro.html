@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Financeira</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/financeiro.css">
+</head>
+<body>
+
+    <a href="/inicio" class="btn-voltar">
+        <i class="ri-arrow-left-circle-fill"></i> Voltar ao Início
+    </a>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="/inicio" class="nav__logo"></a>
+                <div class="nav__toggle" id="nav-toggle">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">Entradas</a></li>
+            <li><a href="#">Saídas</a></li>
+            <li><a href="#">Visão de Competência</a></li>
+            <li><a href="#">Movimentação</a></li>
+            <li><a href="#">Configurações</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-icon">
+        <i class="ri-menu-line"></i>
+    </div>
+
+    <!-- Container Superior -->
+    <div class="finance-container">
+        <div class="finance-item">
+            <i class="ri-money-dollar-box-line"></i> <!-- Ícone de Entradas -->
+            <h3>Entradas</h3>
+            <p>R$ 10.000,00</p>
+        </div>
+        <div class="finance-item">
+            <i class="ri-arrow-up-line"></i> <!-- Ícone de Saídas -->
+            <h3>Saídas</h3>
+            <p>R$ 3.000,00</p>
+        </div>
+        <div class="finance-item">
+            <i class="ri-bank-card-line"></i> <!-- Ícone de Total em Caixa -->
+            <h3>Total em Caixa</h3>
+            <p>R$ 7.000,00</p>
+        </div>
+    </div>
+
+    <!-- Botão de Nova Transação -->
+    <div class="nova-transacao">
+        <a href="#" class="btn btn-primary">Nova Transação</a>
+    </div>
+
+    <script src="/js/financeiro.js"></script>"></script>
+</body>
+</html>
