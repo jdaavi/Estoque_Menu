@@ -66,7 +66,8 @@ def login():
 
     # Simulação de autenticação (substitua por verificação real do banco de dados)
     if login == "Menu2025" and senha == "menu@2025":
-        hash_value = hashlib.sha256(login.encode()).hexdigest()  # Cria um hash único
+
+        hash_value = hashlib.sha256((login+senha).encode()).hexdigest()  # Cria um hash único
         session['user'] = login
         session['hash'] = hash_value
         return redirect(url_for('inicio'))  # Redireciona para a página inicial pós-login
