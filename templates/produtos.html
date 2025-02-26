@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu compras</title>
+    <title>Análise de Produtos</title>
     <link rel="stylesheet" href="/static/css/produto.css">
 </head>
 <body>
@@ -16,20 +16,10 @@
                     <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
                 </button>
             </div>
-
             <div class="campo-id">
                 <input type="text" id="produtoId" placeholder="Pesquisar por ID">
                 <button onclick="confirmarPesquisa()">Confirmar</button>
             </div>
-        </div>
-
-        <div class="sidebar">
-            <ul>
-                <li><a href="/compras">Análise de produtos</a></li>
-            </ul>
-            
-            <a href="/inicio" class="botao-voltar">Voltar</a>
-
         </div>
 
         <!-- Tabela de produtos -->
@@ -37,14 +27,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Data da compra</th>
-                        <th>Previsão de Entrega</th>
-                        <th>Fornecedor</th>
-                        <th>Documento</th>
-                        <th>Descrição</th>
+                        <th>SKU</th>
+                        <th>Item</th>
                         <th>Destino</th>
-                        <th>Valor da compra</th>
+                        <th>Qtd saida</th>
+                        <th>Preço de venda</th>
+                        <th>Frete</th>
                     </tr>
                 </thead>
                 <tbody id="tabelaProdutos">
@@ -52,7 +40,7 @@
                 </tbody>
             </table>
         </div>
-
+        
     <div class="botoes-acao">
         <button onclick="cadastrarProduto()">Cadastrar</button>
         <button onclick="alterarProduto()">Alterar</button>
@@ -63,7 +51,7 @@
     <script>
         // Simulação de dados de produtos
         let produtos = [
-        { id: 1, data_compra: "02/03/2025", nome: "Batata bolinha", entrega: "05/02/2025", fornecedor: "Nagaura", documento:"nfe-324", descricao: "Hortifruti", destino: "Aldeota", valor: "250.00"},
+        { sku: 1, data_compra: "02/03/2025", item: "Batata bolinha", destino: "Sul", quantidade: "30 unidades", preco:"250.00", frete: "45.00", destino: "Aldeota", valor: "250.00"},
         
         ];
 
@@ -74,15 +62,12 @@
             produtos.forEach(produto => {
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${produto.id}</td>
-                    <td>${data_compra.id}</td>
-                    <td>${nome.id}</td>
-                    <td>${entrega.id}</td>
-                    <td>${fornecedor.nome}</td>
-                    <td>${documento.descricao}</td>
-                    <td>R$ ${descricao.preco}</td>
-                    <td>${destino.fornecedor}</td>
-                    <td>${valor.id}</td>
+                    <td>${data_compra.sku}</td>
+                    <td>${item.sku}</td>
+                    <td>${destino.sku}</td>
+                    <td>${quantidade.sku}</td>
+                    <td>R$ ${preco.sku}</td>
+                    <td>R$ ${frete.sku}</td>
                 `;
                 tabelaProdutos.appendChild(tr);
             });

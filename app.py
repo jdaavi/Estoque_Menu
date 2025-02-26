@@ -38,12 +38,26 @@ def financeiro():
 def transferencia():
     return render_template('transferencia.html')
 
+@app.route('/produtos')
+def analise_produtos():
+    if 'hash' not in session:
+        return redirect(url_for('index'))
+    
+    return render_template('produtos.html')
+
+@app.route('/compras')
+def compras():
+    if 'hash' not in session:
+        return redirect(url_for('index'))
+    
+    return render_template('compras.html')
+
 # Logout (Sair)
 @app.route('/sair')
 def sair():
     session.clear()  # Limpa a sessão ao sair
     return redirect(url_for('index'))  # CORRIGIDO
-
+ 
 # Rota de Login
 @app.route('/login', methods=['POST'])
 def login():
