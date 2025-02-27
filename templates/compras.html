@@ -3,77 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu compras</title>
-    <link rel="stylesheet" href="/static/css/produto.css">
+    <title>Menu Compras</title>
+    <link rel="stylesheet" href="/static/css/compras.css">
 </head>
 <body>
 
-    <div class="filtro-acoes">
-        <button onclick="alterarSituacao()">Alterar situação</button>
-        <button onclick="clonarCompra()">Clonar</button>
-        <button onclick="enviar()">Enviar</button>
-    </div>
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+        <ul>
+            <li><a href="/produtos">Análise de Produtos</a></li>
+        </ul>
 
-    <div class="container">
-        <!-- Cabeçalho e barra de pesquisa -->
-        <div class="pesquisa">
-            <div class="campo-pesquisa">
+        <a href="/inicio" class="botao-voltar">Voltar</a>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="container">
+        
+        <!-- Barra de ações -->
+
+        <section class="But-acoes">
+            <div class="acoes">
+                <button onclick="NovaCompra()">Nova compra</button>
+                <button onclick="alert('Aqui vai ter a opção de exportar as compras')">Exportar</button>
+            </div>
+        </section>
+
+        <section class="filtro-acoes">
+            <div class="pesquisa">
                 <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto">
                 <button onclick="pesquisarProduto()" class="lupa">
                     <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
                 </button>
             </div>
-        </div>
 
-        <div class="sidebar">
-            <ul>
-                <li><a href="/produtos">Análise de produtos</a></li>
-            </ul>
+            <div class="menu-container">
+                <button class="menu-icon" onclick="toggleMenuFiltros()">Filtros</button>
+                <div id="menu" class="menu">
+                    <button id="item-filtro" onclick="alert('Opção 1')">Ordem de Pedido</button>
+                    <button id="item-filtro" onclick="alert('Opção 2')">Data da compra</button>
+                    <button id="item-filtro" onclick="alert('Opção 4')">Previsão de Entrega</button>
+                    <button id="item-filtro" onclick="alert('Opção 5')">Fornecedor</button>
+                    <button id="item-filtro" onclick="alert('Opção 6')">Data de Recebimento</button>
+                    <button id="item-filtro" onclick="alert('Opção 7')">Destino</button>
+                    <button id="item-filtro" onclick="alert('Opção 8')">Categoria</button>
+                    <button id="item-filtro" onclick="alert('Opção 9')">Situação do pedido</button>
+                    <button id="item-filtro" onclick="alert('Opção 10')">Situação da entrega</button>
+                </div>
+
+                <ul id="lista-filtros">
+
+                </ul>
+            </div>
             
-            <a href="/inicio" class="botao-voltar">Voltar</a>
 
-        </div>
+        </section>
 
         <!-- Tabela de produtos -->
-        <div class="tabela-produtos">
+        <section class="tabela-produtos">
             <table>
                 <thead>
                     <tr>
-                        <th>N ordem</th>
-                        <th>Data da compra</th>
+                        <th>N Ordem</th>
+                        <th>Data da Compra</th>
                         <th>Previsão de Entrega</th>
                         <th>Fornecedor</th>
-                        <th>Valor da compra</th>
-                        <th>N fiscal</th>
-                        <th>Data recebimento</th>
+                        <th>Valor da Compra</th>
+                        <th>N Fiscal</th>
+                        <th>Data Recebimento</th>
                         <th>Destino</th>
                         <th>Categoria</th>
-                        <th>Valor recebimento</th>
+                        <th>Valor Recebimento</th>
                         <th>Situação</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="tabelaProdutos">
-                    <!-- Dados da tabela serão preenchidos dinamicamente -->
+                    <!-- Dados preenchidos dinamicamente -->
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div class="botoes-acao">
-            <button onclick="excluirProduto()">Excluir</button>
-        </div>
-    </div>
+        <section class="config-paginas">
+            <div>
+            <input type="text" contenteditable="10">
+            <button type="button">ok</button>
+            </div>
+            <ul id="paginacao"></ul>
+        </section>
+    </main>
 
     <script>
         // Simulação de dados de produtos
         let produtos = [
-            { n_ordem: "038", data_compra: "02/03/2025",  entrega: "05/02/2025", fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", situacao: "Entregue", valor_recebimento: "250.00" }
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "45,000.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-123456", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
+            { 
+                n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
+                fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
+                destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
+                situacao: "Entregue", valor_recebimento: "250.00" 
+            },
         ];
 
-        // Função para preencher a tabela com os produtos
-        function preencherTabela(produtos) {
+        // Preenche a tabela de produtos
+        const itensPorPagina = 10; 
+        let paginaAtual = 1; 
+
+        // Função para separar os produtos em páginas
+        function paginarProdutos() {
+            const totalPaginas = Math.ceil(produtos.length / itensPorPagina);
+            const paginacao = document.getElementById('paginacao');
+            paginacao.innerHTML = ''; // Limpa a paginação anterior
+
+            for (let i = 1; i <= totalPaginas; i++) {
+                let li = document.createElement('li');
+                li.innerHTML = `<button onclick="mudarPagina(${i})">${i}</button>`;
+                paginacao.appendChild(li);
+            }
+        }
+
+        // Função para preencher a tabela com base na página
+        function preencherTabela(pagina) {
+            
             const tabelaProdutos = document.getElementById('tabelaProdutos');
             tabelaProdutos.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
-            produtos.forEach(produto => {
+
+            const inicio = (pagina - 1) * itensPorPagina;
+            const fim = inicio + itensPorPagina;
+            const produtosPaginados = produtos.slice(inicio, fim);
+
+            produtosPaginados.forEach(produto => {
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${produto.n_ordem}</td>
@@ -86,51 +239,100 @@
                     <td>${produto.destino}</td>
                     <td>${produto.categoria}</td>
                     <td>${produto.valor_recebimento}</td>
-                     <td>${produto.situacao}</td>
+                    <td>${produto.situacao}</td>
+                    <td>
+                        <div class="menu-container">
+                            <button class="menu-icon" onclick="toggleMenu(event)">&#x22EE;</button>
+                            <div id="menu" class="menu">
+                                <button onclick="alterarSituacao()"">Alterar compra</button>
+                                <button onclick="clonarCompra()"">Clonar compra</button>
+                                <button onclick="enviar()">Enviar ao Financeiro</button>
+                                <button onclick="excluirProduto()">Excluir compra</button>
+                            </div>
+                        </div>
+                    </td>
                 `;
                 tabelaProdutos.appendChild(tr);
             });
         }
 
-        // Função de pesquisa por nome
+        // Função para mudar de página
+        function mudarPagina(pagina) {
+            paginaAtual = pagina;
+            preencherTabela(paginaAtual);
+        }      
+
+        // Pesquisa de produto
         function pesquisarProduto() {
             const pesquisa = document.getElementById("pesquisaProduto").value.toLowerCase();
-            const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(pesquisa));
+            const produtosFiltrados = produtos.filter(produto => 
+                produto.fornecedor.toLowerCase().includes(pesquisa) || 
+                produto.categoria.toLowerCase().includes(pesquisa) ||
+                produto.n_ordem.toLowerCase().includes(pesquisa) 
+            );
             preencherTabela(produtosFiltrados);
         }
 
-        // Função de cadastrar produto (simulação)
-        function cadastrarProduto() {
-            alert("Cadastrar produto (Função não implementada)");
-        }
+        // Funções de ações (simulação)
+        function alterarSituacao() { alert("Alterar situação (Função não implementada)"); }
+        function clonarCompra() { alert("Clonar compra (Função não implementada)"); }
+        function enviar() { alert("Enviar (Função não implementada)"); }
+        function excluirProduto() { alert("Excluir produto (Função não implementada)"); }
+        function NovaCompra() { alert("Excluir produto (Função não implementada)"); }
 
-        // Função de alterar produto (simulação)
-        function alterarProduto() {
-            alert("Alterar produto (Função não implementada)");
-        }
-
-        // Função de excluir produto (simulação)
-        function excluirProduto() {
-            alert("Excluir produto (Função não implementada)");
-        }
-
-        // Função de alterar situação (simulação)
-        function alterarSituacao() {
-            alert("Alterar situação (Função não implementada)");
-        }
-
-        // Função de clonar compra (simulação)
-        function clonarCompra() {
-            alert("Clonar compra (Função não implementada)");
-        }
-
-        // Função de enviar (simulação)
-        function enviar() {
-            alert("Enviar (Função não implementada)");
-        }
-
-        // Preencher a tabela inicialmente
+        // Preenchimento inicial da tabela
         preencherTabela(produtos);
+
+        // Função para alternar o menu ao clicar no ícone de três pontos
+        function toggleMenu(event) {
+            const menu = event.target.closest('.menu-container').querySelector('.menu');
+            
+            // Fecha outros menus ao clicar no ícone
+            const allMenus = document.querySelectorAll('.menu');
+            allMenus.forEach(m => {
+                if (m !== menu) {
+                    m.style.display = 'none';
+                }
+            });
+
+            // Toggle o menu clicado
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+
+            // Impede que o clique no ícone de três pontos feche o menu imediatamente
+            event.stopPropagation();
+        }
+
+        // Função para alternar o menu de filtros
+        function toggleMenuFiltros() {
+            const menu = document.getElementById('menu');
+            // Toggle o display do menu
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+       // Fechar o menu se clicar fora dele
+       window.onclick = function(event) {
+            if (!event.target.matches('.menu-icon')) {
+                const menu = document.querySelector('.menu');
+                if (menu && menu.style.display === "block") {
+                    menu.style.display = "none";
+                }
+            }
+        };
+        // Fechar o menu se o usuário clicar fora dele
+        window.onclick = function(event) {
+            if (!event.target.closest('.menu-container')) {
+                const dropdowns = document.querySelectorAll('.menu');
+                dropdowns.forEach(menu => {
+                    menu.style.display = 'none';
+                });
+            }
+        };
+
+        // Inicializa a tabela e a paginação
+        window.onload = () => {
+            paginarProdutos();
+            preencherTabela(paginaAtual);
+        };
     </script>
 </body>
 </html>

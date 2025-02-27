@@ -1,0 +1,289 @@
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #a31212;
+    color: white;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;  /* Remove o padding da esquerda */
+    width: 100%;  /* Garante que a lista ocupe toda a largura disponível */
+}
+
+.sidebar li {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar a {
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    display: block;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+    padding-left: 10px;  /* Ajuste o padding da esquerda para colar o texto */
+}
+
+.sidebar a:hover {
+    background-color: #000000;
+}
+
+.sidebar a:hover {
+    background-color: #000000;
+}
+
+.botao-voltar {
+    background-color: #000000;
+    color: white;
+    padding: 15px;
+    width: 130px;
+    text-decoration: none;
+    border-radius: 40px;
+    margin-top:auto;
+    text-align: center;
+}
+
+.botao-voltar:hover {
+    background-color: #000;
+}
+
+/* Container principal */
+.container {
+    background-color: #fff;
+    font-size: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    height: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 220px;
+}
+
+/* Barra de pesquisa */
+.pesquisa {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pesquisa input {
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.lupa img {
+    width: 20px;
+}
+
+/* Botões de ações */
+.filtro-acoes, .But-acoes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start; 
+    gap: 10px;
+    height: 30%;
+    
+}
+
+.filtro-acoes button ,.But-acoes button{
+    padding: 8px 10px;
+    font-size: 12px;
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-acoes button:hover ,.But-acoes button:hover{
+    background-color: #000000;
+}
+
+/* Tabela de produtos */
+.tabela-produtos{
+    width: 100%;
+    max-height: 60%;
+    overflow-y:auto; /* Habilita a rolagem apenas na tabela */
+    border: 1px solid #ccc; /* Apenas para visualização */
+    margin: 0;
+    padding: 0;
+}
+.tabela-produtos table {
+    width: 100%;
+    border-collapse:collapse;
+}
+
+.tabela-produtos th, .tabela-produtos td {
+    padding: 12px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+/* Ajustes específicos para as colunas */
+.tabela-produtos th:nth-child(1), .tabela-produtos td:nth-child(1) {border-top: 1px solid black ;  width: 3%; }
+.tabela-produtos th:nth-child(2), .tabela-produtos td:nth-child(2) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(3), .tabela-produtos td:nth-child(3) {border-top: 1px solid black ;  width: 15%; }
+.tabela-produtos th:nth-child(4), .tabela-produtos td:nth-child(4) {border-top: 1px solid black ;  width: 30%; }
+.tabela-produtos th:nth-child(5), .tabela-produtos td:nth-child(5) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(6), .tabela-produtos td:nth-child(6) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(7), .tabela-produtos td:nth-child(7) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(8), .tabela-produtos td:nth-child(8) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(9), .tabela-produtos td:nth-child(9) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(10), .tabela-produtos td:nth-child(10) {border-top: 1px solid black ;  width: 10%; }
+.tabela-produtos th:nth-child(11), .tabela-produtos td:nth-child(11) { border-top: 1px solid black ; width: 10%; }
+.tabela-produtos th:nth-child(12), .tabela-produtos td:nth-child(12) { border-top: 1px solid black ;   width: 1%; }
+
+/* Estilo do botão de três pontos verticais */
+.tabela-produtos td:nth-child(12) .menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tabela-produtos td:nth-child(12) .menu-icon {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.tabela-produtos td:nth-child(12) .menu-icon::before, .tabela-produtos td:nth-child(12) .menu-icon::after {
+    content: "";
+    display: block;
+    height: 4px; /* Espessura das linhas */
+    width: 20px; /* Largura das linhas */
+}
+
+.tabela-produtos td:nth-child(12) .menu {
+    display: none;
+    position: absolute;
+    top: 30px;  /* Ajusta a posição para abrir abaixo do ícone */
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.tabela-produtos td:nth-child(12) .menu button {
+    background-color: #f1f1f1;
+    padding: 12px 16px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tabela-produtos td:nth-child(12) .menu button:hover {
+    background-color: #ddd;
+}
+
+.tabela-produtos td:nth-child(12) .menu button:hover {
+    background-color: #ddd;
+}
+
+
+ul#paginacao {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+ul#paginacao li button{
+    padding: 4px;
+    background-color: #ad1212;
+    color: white;
+    border: 1px solid black;
+}
+
+ul#paginacao li button:hover{
+    background-color: #cf1515;
+}
+
+.config-paginas{
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.config-paginas div, ul{
+    width: 50%;
+}
+
+
+/* Estilo do botão de três pontos verticais */
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    max-height: 150px;
+    overflow-y:auto;
+}
+
+.menu button {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 12px 16px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background-color: #ddd;
+}
