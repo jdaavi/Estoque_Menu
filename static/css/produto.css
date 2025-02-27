@@ -10,7 +10,7 @@ body {
     background-color: #f4f7f6;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     height: 100vh;
     margin: 0;
 }
@@ -18,20 +18,23 @@ body {
 /* Container principal */
 .container {
     background-color: #fff;
+    font-size: 12px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: 900px;
     max-width: 1000px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 250px;
+    margin: 0 80px;
+    margin-left: 220px;
 }
 
 /* Pesquisa */
 .pesquisa {
     display: flex;
+    font-size: 12px;
     justify-content: space-between;
     margin-bottom: 20px;
 }
@@ -41,14 +44,10 @@ body {
     transition: filter 0.3s ease;
 }
 
-.campo-pesquisa, .campo-id {
-    display: flex;
-    align-items: center;
-}
 
 .campo-pesquisa input, .campo-id input {
     padding: 10px;
-    font-size: 1rem;
+    font-size: 12px;
     border: 2px solid #000000;
     border-radius: 4px;
     margin-right: 10px;
@@ -57,7 +56,7 @@ body {
 
 button {
     padding: 10px 15px;
-    font-size: 1rem;
+    font-size: 12px;
     background-color: #ad1212;
     color: white;
     border: none;
@@ -70,12 +69,13 @@ button:hover {
 }
 
 .lupa img {
-    width: 20px;
+    width: 10px;
 }
 
 /* Tabela */
 .tabela-produtos table {
     width: 100%;
+    text-align: center;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -94,11 +94,56 @@ button:hover {
     background-color: #ffffff;
 }
 
+/* Ajustes específicos para as colunas da tabela */
+.tabela-produtos th:nth-child(1), .tabela-produtos td:nth-child(1) {
+    width: 5%; /* Tamanho da coluna N ordem */
+}
+
+.tabela-produtos th:nth-child(2), .tabela-produtos td:nth-child(2) {
+    width: 15%; /* Tamanho da coluna Data da compra */
+}
+
+.tabela-produtos th:nth-child(3), .tabela-produtos td:nth-child(3) {
+    width: 15%; /* Tamanho da coluna Previsão de Entrega */
+}
+
+.tabela-produtos th:nth-child(4), .tabela-produtos td:nth-child(4) {
+    width: 15%; /* Tamanho da coluna Fornecedor */
+}
+
+.tabela-produtos th:nth-child(5), .tabela-produtos td:nth-child(5) {
+    width: 10%; /* Tamanho da coluna Valor da compra */
+}
+
+.tabela-produtos th:nth-child(6), .tabela-produtos td:nth-child(6) {
+    width: 10%; /* Tamanho da coluna N fiscal */
+}
+
+.tabela-produtos th:nth-child(7), .tabela-produtos td:nth-child(7) {
+    width: 10%; /* Tamanho da coluna Data recebimento */
+}
+
+.tabela-produtos th:nth-child(8), .tabela-produtos td:nth-child(8) {
+    width: 10%; /* Tamanho da coluna Destino */
+}
+
+.tabela-produtos th:nth-child(9), .tabela-produtos td:nth-child(9) {
+    width: 10%; /* Tamanho da coluna Categoria */
+}
+
+.tabela-produtos th:nth-child(10), .tabela-produtos td:nth-child(10) {
+    width: 10%; /* Tamanho da coluna Valor recebimento */
+}
+
+.tabela-produtos th:nth-child(11), .tabela-produtos td:nth-child(11) {
+    width: 10%; /* Tamanho da coluna Situação */
+}
+
 /* Botões de ação */
 .botoes-acao {
     display: flex;
     gap: 10px;
-    width: 400px;
+    width: 200px;
     align-self: flex-end;
     position: relative;
     top: 10px;
@@ -123,12 +168,17 @@ button:hover {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    
+}
+
+.sidebar ul{
+    text-decoration: none;
 }
 
 .sidebar a {
     padding: 12px 20px; /* Aumentando o padding para dar mais espaço entre os itens */
     text-decoration: none;
-    font-size: 18px;
+    font-size: 14px;
     color: white;
     display: block;
     transition: background-color 0.3s;
@@ -136,7 +186,7 @@ button:hover {
 }
 
 .sidebar a:hover {
-    background-color: #575757;
+    background-color: #000000;
 }
 
 /* Estilo para o conteúdo principal */
@@ -158,7 +208,6 @@ button:hover {
     display: block;
     text-align: center;
     justify-content: center;
-
 }
 
 .botao-voltar:hover {
@@ -190,4 +239,29 @@ button:hover {
     .content {
         margin-left: 0;
     }
+
+    /* Container de Filtros de Ações */
+.filtro-acoes {
+    display: flex;
+    justify-content: space-around; /* Espaço igual entre os botões */
+    margin-top: 20px; /* Espaçamento acima do container */
+    margin-bottom: 20px; /* Espaçamento abaixo do container */
+}
+
+.filtro-acoes button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 150px;
+}
+
+.filtro-acoes button:hover {
+    background-color: #000000; /* Alterar cor ao passar o mouse */
+}
+
 }

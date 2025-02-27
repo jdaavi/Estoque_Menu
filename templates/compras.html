@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="/static/css/produto.css">
 </head>
 <body>
+
+    <div class="filtro-acoes">
+        <button onclick="alterarSituacao()">Alterar situação</button>
+        <button onclick="clonarCompra()">Clonar</button>
+        <button onclick="enviar()">Enviar</button>
+    </div>
+
     <div class="container">
         <!-- Cabeçalho e barra de pesquisa -->
         <div class="pesquisa">
@@ -16,16 +23,11 @@
                     <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
                 </button>
             </div>
-
-            <div class="campo-id">
-                <input type="text" id="produtoId" placeholder="Pesquisar por ID">
-                <button onclick="confirmarPesquisa()">Confirmar</button>
-            </div>
         </div>
 
         <div class="sidebar">
             <ul>
-                <li><a href="/compras">Análise de produtos</a></li>
+                <li><a href="/produtos">Análise de produtos</a></li>
             </ul>
             
             <a href="/inicio" class="botao-voltar">Voltar</a>
@@ -37,14 +39,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>N ordem</th>
                         <th>Data da compra</th>
                         <th>Previsão de Entrega</th>
                         <th>Fornecedor</th>
-                        <th>Documento</th>
-                        <th>Descrição</th>
-                        <th>Destino</th>
                         <th>Valor da compra</th>
+                        <th>N fiscal</th>
+                        <th>Data recebimento</th>
+                        <th>Destino</th>
+                        <th>Categoria</th>
+                        <th>Valor recebimento</th>
+                        <th>Situação</th>
                     </tr>
                 </thead>
                 <tbody id="tabelaProdutos">
@@ -53,18 +58,15 @@
             </table>
         </div>
 
-    <div class="botoes-acao">
-        <button onclick="cadastrarProduto()">Cadastrar</button>
-        <button onclick="alterarProduto()">Alterar</button>
-        <button onclick="excluirProduto()">Excluir</button>
+        <div class="botoes-acao">
+            <button onclick="excluirProduto()">Excluir</button>
+        </div>
     </div>
 
-    </div>
     <script>
         // Simulação de dados de produtos
         let produtos = [
-        { id: 1, data_compra: "02/03/2025", nome: "Batata bolinha", entrega: "05/02/2025", fornecedor: "Nagaura", documento:"nfe-324", descricao: "Hortifruti", destino: "Aldeota", valor: "250.00"},
-        
+            { n_ordem: "038", data_compra: "02/03/2025",  entrega: "05/02/2025", fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", situacao: "Entregue", valor_recebimento: "250.00" }
         ];
 
         // Função para preencher a tabela com os produtos
@@ -74,15 +76,17 @@
             produtos.forEach(produto => {
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${produto.id}</td>
-                    <td>${data_compra.id}</td>
-                    <td>${nome.id}</td>
-                    <td>${entrega.id}</td>
-                    <td>${fornecedor.nome}</td>
-                    <td>${documento.descricao}</td>
-                    <td>R$ ${descricao.preco}</td>
-                    <td>${destino.fornecedor}</td>
-                    <td>${valor.id}</td>
+                    <td>${produto.n_ordem}</td>
+                    <td>${produto.data_compra}</td>
+                    <td>${produto.entrega}</td>
+                    <td>${produto.fornecedor}</td>
+                    <td>R$ ${produto.valor}</td>
+                    <td>${produto.documento}</td>
+                    <td>${produto.recebimento}</td>
+                    <td>${produto.destino}</td>
+                    <td>${produto.categoria}</td>
+                    <td>${produto.valor_recebimento}</td>
+                     <td>${produto.situacao}</td>
                 `;
                 tabelaProdutos.appendChild(tr);
             });
@@ -93,17 +97,6 @@
             const pesquisa = document.getElementById("pesquisaProduto").value.toLowerCase();
             const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(pesquisa));
             preencherTabela(produtosFiltrados);
-        }
-
-        // Função de pesquisa por ID
-        function confirmarPesquisa() {
-            const id = document.getElementById("produtoId").value;
-            const produto = produtos.find(prod => prod.id == id);
-            if (produto) {
-                preencherTabela([produto]);
-            } else {
-                alert("Produto não encontrado!");
-            }
         }
 
         // Função de cadastrar produto (simulação)
@@ -121,10 +114,23 @@
             alert("Excluir produto (Função não implementada)");
         }
 
+        // Função de alterar situação (simulação)
+        function alterarSituacao() {
+            alert("Alterar situação (Função não implementada)");
+        }
+
+        // Função de clonar compra (simulação)
+        function clonarCompra() {
+            alert("Clonar compra (Função não implementada)");
+        }
+
+        // Função de enviar (simulação)
+        function enviar() {
+            alert("Enviar (Função não implementada)");
+        }
+
         // Preencher a tabela inicialmente
         preencherTabela(produtos);
-
-        preencherTabela();
     </script>
 </body>
 </html>
