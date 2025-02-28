@@ -52,6 +52,13 @@ def compras():
     
     return render_template('compras.html')
 
+@app.route('/cadastro')
+def cadastro():
+    if 'hash' not in session:
+        return redirect(url_for('index'))
+    
+    return render_template('cadastro.html')
+
 # Logout (Sair)
 @app.route('/sair')
 def sair():
