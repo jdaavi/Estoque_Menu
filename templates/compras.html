@@ -50,13 +50,18 @@
                     <button id="item-filtro" onclick="alert('Opção 9')">Situação do pedido</button>
                     <button id="item-filtro" onclick="alert('Opção 10')">Situação da entrega</button>
                 </div>
-
                 <ul id="lista-filtros">
-
                 </ul>
             </div>
-            
+        </section>
 
+        <section class="multi-aba">
+            <ul>
+                <li>Todos</li>
+                <li>Em aberto</li>
+                <li>Agendado</li>
+                <li>Recebido</li>
+            </ul>
         </section>
 
         <!-- Tabela de produtos -->
@@ -94,108 +99,110 @@
     </main>
 
     <script>
+        // simulação categorias
+        let situacao_compa =[{categoria:"Em aberto",categoria:"Em andamento",categoria:"Recebido"}]
         // Simulação de dados de produtos
         let produtos = [
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "45,000.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00",situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-123456", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },            { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
             { 
                 n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025",
                 fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", 
                 destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", 
-                situacao: "Entregue", valor_recebimento: "250.00" 
+                situacao: "Entregue", valor_recebimento: "250.00" ,situacao_compras:"Em aberto"
             },
         ];
 
@@ -327,6 +334,10 @@
                 });
             }
         };
+
+        function preencherAbas(){
+            
+        }
 
         // Inicializa a tabela e a paginação
         window.onload = () => {

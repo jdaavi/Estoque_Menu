@@ -86,7 +86,7 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: left;
     align-items: center;
     margin-left: 220px;
 }
@@ -95,7 +95,7 @@ body {
 .pesquisa {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+
 }
 
 .pesquisa input {
@@ -117,7 +117,7 @@ body {
     flex-direction: row;
     align-items:flex-start; 
     gap: 10px;
-    height: 30%;
+    height: 10%;
     
 }
 
@@ -247,14 +247,22 @@ ul#paginacao li button:hover{
 .config-paginas{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
 
     width: 100%;
 }
 
-.config-paginas div, ul{
-    width: 50%;
+.config-paginas input{
+    width: 50px;
 }
 
+.config-paginas button{
+    padding: 4px;
+    background-color: #ad1212;
+    color: white;
+    border: 1px solid black;
+}
 
 /* Estilo do botão de três pontos verticais */
 .menu-container {
@@ -286,4 +294,22 @@ ul#paginacao li button:hover{
 
 .menu button:hover {
     background-color: #ddd;
+}
+
+.multi-aba{
+    display: flex;
+    width: 100%;
+}
+.multi-aba ul{
+    margin: 0;
+    padding: 0;
+}
+
+.multi-aba ul li{
+    display: inline-block;
+    padding: 20px 40px;
+    border: 1px solid black;
+    margin: 0;
+    cursor: pointer;
+    
 }
