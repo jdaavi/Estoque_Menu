@@ -29,6 +29,13 @@ body {
     align-items: center;
 }
 
+.sidebar .logo {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
 .sidebar ul {
     list-style-type: none;
     margin: 0;
@@ -42,14 +49,14 @@ body {
 }
 
 .sidebar a {
-    padding: 12px 20px;
+    padding: 10px 20px;
     text-decoration: none;
     font-size: 14px;
     color: white;
     display: block;
     transition: background-color 0.3s;
     margin-bottom: 10px;
-    padding-left: 10px;  /* Ajuste o padding da esquerda para colar o texto */
+    padding-left: 30px;  
 }
 
 .sidebar a:hover {
@@ -66,7 +73,7 @@ body {
     padding: 20px;
     width: 120px;
     text-decoration: none;
-    border-radius: 40px;
+    border-radius: 50px;
     margin-top:auto;
     text-align: center;
 }
@@ -80,22 +87,22 @@ body {
     background-color: #fff;
     font-size: 12px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 80%;
-    height: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-left: 220px;
+    margin-left: 200px;
 }
 
 /* Barra de pesquisa */
 .pesquisa {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .pesquisa input {
@@ -111,19 +118,29 @@ body {
 }
 
 /* Botões de ações */
-.filtro-acoes, .But-acoes {
+.filtro-acoes {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items:flex-start; 
     gap: 10px;
-    height: 30%;
+    height: 8%;
     
 }
 
-.filtro-acoes button ,.But-acoes button{
-    padding: 8px 10px;
+.But-acoes {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start; 
+    gap: 10px;
+    height: 8%;
+}
+
+.filtro-acoes button {
+    padding: 8px 20px;
     font-size: 12px;
+    margin-left: 5px;
     background-color: #ad1212;
     color: white;
     border: none;
@@ -132,7 +149,23 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.filtro-acoes button:hover ,.But-acoes button:hover{
+.But-acoes button {
+    padding: 8px 20px;
+    font-size: 12px;
+    margin-left: 5px;
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-acoes button:hover {
+    background-color: #000000;
+}
+
+But-acoes button:hover {
     background-color: #000000;
 }
 
@@ -142,7 +175,7 @@ body {
     max-height: 60%;
     overflow-y:auto; /* Habilita a rolagem apenas na tabela */
     border: 1px solid #ccc; /* Apenas para visualização */
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
 }
 .tabela-produtos table {
