@@ -25,19 +25,13 @@
         
         <!-- Barra de ações -->
 
-        <section class="But-acoes">
-            <div class="acoes">
-                <button onclick="NovaCompra()">Nova compra</button>
-                <button onclick="alert('Aqui vai ter a opção de exportar as compras')">Exportar</button>
-            </div>
-        </section>
-
         <section class="filtro-acoes">
             <div class="pesquisa">
                 <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto">
                 <button onclick="pesquisarProduto()" class="lupa">
                     <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
                 </button>
+                
             </div>
 
             <div class="menu-container">
@@ -56,15 +50,14 @@
                 <ul id="lista-filtros">
                 </ul>
             </div>
-        </section>
 
-        <section class="multi-aba">
-            <ul>
-                <li>Todos</li>
-                <li>Em aberto</li>
-                <li>Agendado</li>
-                <li>Recebido</li>
-            </ul>
+
+            <div class="top-actions">
+                <button class="action-buttons">Nova Compra</button>
+                <button class="action-buttons">Exportar</button>
+            </div>
+
+
         </section>
 
         <!-- Tabela de produtos -->
