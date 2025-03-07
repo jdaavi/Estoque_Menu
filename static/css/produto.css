@@ -1,0 +1,180 @@
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Container principal */
+.container {
+    background-color: #fff;
+    font-size: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px; /* Define uma largura máxima para o contêiner */
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    position: relative;
+}
+
+/* Cabeçalho e barra de pesquisa */
+.pesquisa {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Garante que a pesquisa ocupe toda a largura disponível */
+}
+
+.pesquisa .campo-pesquisa input,
+.pesquisa .campo-id input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80%;
+}
+
+.pesquisa button {
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pesquisa button:hover {
+    background-color: #9c1010;
+}
+
+/* Tabela de produtos */
+.tabela-produtos {
+    width: 100%;
+    max-height: 60%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tabela-produtos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-produtos th, .tabela-produtos td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.tabela-produtos th {
+    background-color: #ad1212;
+    color: white;
+}
+
+.tabela-produtos td {
+    background-color: #f9f9f9;
+}
+
+.tabela-produtos tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
+.tabela-produtos td {
+    font-size: 14px;
+}
+
+/* Botoes de Ação */
+.botoes-acao {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%; /* Garante que os botões ocupem toda a largura */
+}
+
+.botoes-acao button {
+    background-color: #ad1212;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.botoes-acao button:hover {
+    background-color: #9c1010;
+}
+
+/* Estilo para Botão de Confirmar Pesquisa */
+#produtoId {
+    width: 40%;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    .pesquisa {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tabela-produtos th, .tabela-produtos td {
+        font-size: 12px;
+    }
+
+    .botoes-acao {
+        flex-direction: column;
+    }
+
+    .botoes-acao button {
+        width: 100%;
+    }
+
+    .campo-pesquisa input,
+    .campo-id input {
+        width: 100%;
+    }
+}
+
+/* Estilo do botão de voltar */
+.botao-voltar {
+    background-color: #ad1212;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border: none;
+}
+
+.botao-voltar:hover {
+    background-color: #9c1010;
+}
