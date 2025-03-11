@@ -9,32 +9,20 @@
 </head>
 <body>
 
-    <a href="/inicio" class="btn-voltar">
-        <i class="ri-arrow-left-circle-fill"></i> Voltar ao Início
-    </a>
-    <header class="header">
-        <nav class="nav container">
-            <div class="nav__data">
-                <a href="/inicio" class="nav__logo"></a>
-                <div class="nav__toggle" id="nav-toggle">
-                </div>
-            </div>
-        </nav>
-    </header>
-
-
     <div class="sidebar">
-        <ul>
-            <li><a href="#">Entradas</a></li>
-            <li><a href="#">Saídas</a></li>
-            <li><a href="#">Visão de Competência</a></li>
-            <li><a href="#">Movimentação</a></li>
-            <li><a href="#">Configurações</a></li>
-        </ul>
-    </div>
-
-    <div class="sidebar-icon">
-        <i class="ri-menu-line"></i>
+        <div class="logo-container">
+            <img src="/static/img/Logo menu.png" alt="Logo da empresa" class="logo">
+        </div>
+        <a href="javascript:history.back()" class="btn-voltar">
+            <i class="ri-arrow-left-circle-fill"></i> <span>Financeiro</span>
+        </a>
+        <a href="#">Visão de Competência</a>
+        <a href="#">A pagar</a>
+        <a href="#">A receber</a>
+        <a href="#">Relatórios</a>
+        <a href="#">Movimentações</a>
+        <a href="#">Fluxo de Caixa</a>
+        <a href="#">Configurações</a>
     </div>
 
     <!-- Container Superior -->
@@ -56,12 +44,10 @@
         </div>
     </div>
 
-  
     <div class="nova-transacao">
         <a href= "/transferencia" class="btn btn-primary">Nova Transferência</a>
     </div>
 
-
-    <script src="/js/financeiro.js"></script>"></script>
+    <script src="/js/financeiro.js"></script>
 </body>
 </html>
