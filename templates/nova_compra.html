@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Compra</title>
+    <link rel="stylesheet" href="/static/css/nova_compra.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de nova compra</h1>
+
+        <!-- Botão de voltar -->
+        <a href="/compras" class="btn-voltar">Voltar</a>
+
+        <form method="POST" action="/nova_compra">
+            <!-- Primeiro container (informações de compra) -->
+            <div class="form-container">
+                <div class="input-group">
+                    <label for="fornecedor">Fornecedor</label>
+                    <input type="text" id="fornecedor" name="fornecedor" required>
+                </div>
+                <div class="input-group">
+                    <label for="data_compra">Data da Compra</label>
+                    <input type="date" id="data_compra" name="data_compra" required>
+                </div>
+                <div class="input-group">
+                    <label for="n_ordem">Nº da Ordem</label>
+                    <input type="text" id="n_ordem" name="n_ordem" required>
+                </div>
+                <div class="input-group">
+                    <label for="valor_compra">Valor da Compra</label>
+                    <input type="number" id="valor_compra" name="valor_compra" required>
+                </div>
+            </div>
+
+            <!-- Segundo container (informações de entrega e recebimento) -->
+            <div class="form-container">
+                <div class="input-group">
+                    <label for="previsao_entrega">Previsão de Entrega</label>
+                    <input type="date" id="previsao_entrega" name="previsao_entrega" required>
+                </div>
+                <div class="input-group">
+                    <label for="data_recebimento">Data de Recebimento</label>
+                    <input type="date" id="data_recebimento" name="data_recebimento" required>
+                </div>
+                <div class="input-group">
+                    <label for="destino">Destino</label>
+                    <input type="text" id="destino" name="destino" required>
+                </div>
+                <div class="input-group">
+                    <label for="categoria">Categoria</label>
+                    <input type="text" id="categoria" name="categoria" required>
+                </div>
+            </div>
+
+            <!-- Botão de envio -->
+            <button type="submit">Salvar Compra</button>
+        </form>
+    </div>
+</body>
+</html>

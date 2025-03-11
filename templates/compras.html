@@ -52,7 +52,9 @@
 
             <!-- Botões de ação: Nova Compra e Exportar -->
             <div class="acoes-principais">
-                <button class="action-buttons">Nova Compra</button>
+                <a href="/nova_compra">
+                    <button class="action-buttons">Nova Compra</button>
+                </a>
                 <button class="action-buttons">Exportar</button>
             </div>
         </section>
@@ -81,6 +83,27 @@
                 </tbody>
             </table>
         </section>
+
+        <tbody id="tabelaProdutos">
+            {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.n_ordem }}</td>
+                    <td>{{ produto.data_compra }}</td>
+                    <td>{{ produto.entrega }}</td>
+                    <td>{{ produto.fornecedor }}</td>
+                    <td>R$ {{ produto.valor }}</td>
+                    <td>{{ produto.documento }}</td>
+                    <td>{{ produto.recebimento }}</td>
+                    <td>{{ produto.destino }}</td>
+                    <td>{{ produto.categoria }}</td>
+                    <td>{{ produto.valor_recebimento }}</td>
+                    <td>{{ produto.situacao }}</td>
+                    <td> 
+                        <!-- Suas ações aqui -->
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
 
         <!-- Seção de configuração de páginas -->
         <section class="config-paginas">

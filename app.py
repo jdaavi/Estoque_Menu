@@ -5,6 +5,11 @@ import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Gera uma chave secreta aleatória
 
+produtos = [
+    {"n_ordem": "038", "data_compra": "02/03/2025", "entrega": "05/02/2025", "fornecedor": "Nagaura", "documento": "nfe-324", "recebimento": "06/02/2025", "destino": "Aldeota", "valor": "45,000.00", "categoria": "Hortifruti", "situacao": "Entregue", "valor_recebimento": "250.00", "situacao_compras": "Em aberto"},
+    {"n_ordem": "039", "data_compra": "03/03/2025", "entrega": "06/02/2025", "fornecedor": "Nagaura", "documento": "nfe-123456", "recebimento": "07/02/2025", "destino": "Aldeota", "valor": "250.00", "categoria": "Hortifruti", "situacao": "Entregue", "valor_recebimento": "250.00", "situacao_compras": "Em aberto"},
+]
+
 # Página inicial (Login)
 @app.route('/')
 def index():
@@ -80,6 +85,43 @@ def login():
         return redirect(url_for('inicio'))  # Redireciona para a página inicial pós-login
     else:
         return "Usuário ou senha incorretos", 401  # Código 401 para indicar erro de autenticação
+    
+@app.route('/nova_compra', methods =['GET','POST'])
+def nova_compra():
+    if request.method == 'POST':
+
+        n_ordem = request.form['n_ordem']
+        data_compra = request.form['data_compra']
+        entrega = request.form['entrega']
+        fornecedor = request.form['fornecedor']
+        documento = request.form['documento']
+        recebimento = request.form['recebimento']
+        destino = request.form['destino']
+        valor = request.form['valor']
+        categoria = request.form['categoria']
+        situacao = request.form['situacao']
+        valor_recebimento = request.form['valor_recebimento']
+        situacao_compras = request.form['situacao_compras']
+
+        # Adicionando a nova compra à lista de produtos
+        nova_compra = {
+            "n_ordem": n_ordem,
+            "data_compra": data_compra,
+            "entrega": entrega,
+            "fornecedor": fornecedor,
+            "documento": documento,
+            "recebimento": recebimento,
+            "destino": destino,
+            "valor": valor,
+            "categoria": categoria,
+            "situacao": situacao,
+            "valor_recebimento": valor_recebimento,
+            "situacao_compras": situacao_compras
+        }
+        produtos.append(nova_compra)
+        return redirect(url_for('compras'))
+
+    return render_template('nova_compra.html')
 
 # Inicia o servidor Flask
 if __name__ == '__main__':
