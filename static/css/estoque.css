@@ -9,7 +9,10 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
+    align-items: flex-start;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Menu Lateral */
@@ -18,8 +21,8 @@ body {
     height: 100vh;
     background-color: #9e1010;
     color: white;
-    position: fixed;
     left: 0;
+    position: fixed;
     top: 0;
     padding-top: 20px;
 }
@@ -93,6 +96,7 @@ body {
     margin-left: 250px;
     padding: 20px;
     width: 100%;
+    margin-top: 0;
 }
 
 /* Botões (Cadastro, Importar, Exportar) - Alinhados à esquerda */
@@ -140,33 +144,78 @@ body {
     border: 1px solid #000000;
 }
 
-/* Tabela de Estoque */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-table th {
-    background-color: #960c0c;
-    color: white;
-}
-
-table tr:nth-child(even) {
-    background-color: #ecf0f1;
-}
-
-table tr:hover {
-    background-color: #dfe6e9;
-}
-
 /* Espaço entre a barra de pesquisa e a tabela */
 .search-container {
     margin-bottom: 30px; /* Aumentando a margem para criar mais espaço */
+}
+
+.grafico-container {
+    display: flex;
+    padding-left: 10px;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 20%;
+    max-width: 300px;
+    max-height: 250px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.grafico-container {
+    display: flex;
+    flex-direction: column;  /* Mudado para coluna, para colocar a legenda abaixo */
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    max-width: 300px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.grafico-container h2 {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.legend-container {
+    display: flex;
+    flex-direction: column;  /* Legendas dispostas verticalmente */
+    margin-left: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: auto; /* Largura dinâmica */
+}
+
+.legend-container div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;  /* Menos espaço entre as legendas */
+}
+
+.legend-container div span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.legend-container div p {
+    margin: 0;
+    font-size: 14px;
+    color: #000000;  /* Texto em branco para melhor contraste */
+}
+
+/* Estilo adicional para o total de espaço utilizado no estoque */
+.total {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #000000;  /* Texto em branco */
+    font-weight: bold;
+}
+
+#graficoPizza {
+    margin: 0; /* Diminuindo a margem superior do gráfico */
+    padding: 0;
 }

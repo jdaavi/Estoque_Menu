@@ -6,6 +6,7 @@
     <title>Sistema de Estoque</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estoque.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -15,13 +16,13 @@
             <img src="/static/img/Logo menu.png" alt="Logo da empresa" class="logo">
         </div>
         <ul>
-            <li><a href="/inicio">Início</a></li>
-            <li><a href="#relatorios">Relatórios</a></li>
+            <li><a href="#">Inventário</a></li>
+            <li><a href="#">Relatórios</a></li>
             <li><a href="/compras">Compras</a></li>
+            <li><a href="#">Configuração</a></li>
             <li><a href="/inicio" class="sair">Sair</a></li>
         </ul>
     </div>
-
 
     <!-- Conteúdo principal -->
     <div class="main-content">
@@ -38,40 +39,69 @@
             <i class="fas fa-search"></i> <!-- Ícone da lupa -->
             <input type="text" class="search" placeholder="Pesquisar Produto...">
         </div>
+        
+        <div class="grafico-container">
+            <h2>Distribuição Estoque</h2>
+            <canvas id="graficoPizza"></canvas>
+            <div class="legend-container">
+                <div class="total">
+                    <p><strong>Capacidade ocupada: 100%</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            // Dados fictícios para o gráfico de pizza
+            const ctx = document.getElementById('graficoPizza').getContext('2d');
+            const graficoPizza = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Estoque Seco', 'Câmera Fria', 'Estoque de grãos', 'Bebidas', 'Mercearia', 'Proteinas'],
+                    datasets: [{
+                        data: [20, 15, 25, 10, 15, 15], // Distribuindo as porcentagens
+                        backgroundColor: ['#2a7dff', '#ff0000', '#fffd2a', '#21a805', '#ff6a00', '#b6540e'],
+                        hoverBackgroundColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+                    }]
+                },
+                options: {
+                    responsive: true, 
+                    plugins: {
+                        legend: {
+                            position: 'right', // Coloca as legendas à direita do gráfico
+                            labels: {
+                                boxWidth: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    // Adicionando título "Legendas" acima das legendas
+                    plugins: [{
+                        afterDraw: function(chart) {
+                            const ctx = chart.chart.ctx;
+                            const chartArea = chart.chartArea;
+                            const x = chartArea.left + chartArea.width + 20; // Alinhar à direita das legendas
+                            const y = chartArea.top + 20; // Posição do título acima das legendas
+                            ctx.save();
+                            ctx.font = '16px Arial'; // Tamanho e fonte do título
+                            ctx.fillStyle = '#000000'; // Cor do texto
+                            ctx.fillText('Legendas', x, y); // Escreve o título "Legendas"
+                            ctx.restore();
+                        }
+                    }]
+                }
+            });
+        </script>
+        
 
-        <!-- Tabela de Estoque -->
-        <table>
-            <thead>
-                <tr>
-                    <th>SKU</th>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Medida</th>
-                    <th>Custo Médio</th>
-                    <th>Preço de venda</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>007</td>
-                    <td>Produto 01</td>
-                    <td>5</td>
-                    <td>Kg</td>
-                    <td>R$ 250,00</td>
-                    <td>R$ 56,00</td>
-                </tr>
-                <tr>
-                    <td>015</td>
-                    <td>Produto 2</td>
-                    <td>2</td>
-                    <td>Litros</td>
-                    <td>R$ 65,00</td>
-                    <td>R$ 13,00</td>
-                </tr>
-                <!-- Mais produtos podem ser listados aqui -->
-
-            </tbody>
-        </table>
     </div>
 </body>
 </html>

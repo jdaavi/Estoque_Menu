@@ -80,10 +80,17 @@ body {
     border-radius: 50px;
     margin-top:auto;
     text-align: center;
+    display: inline-block;
+}
+
+.botao-voltar a {
+    color: #ddd;
+    text-decoration: none;
 }
 
 .botao-voltar:hover {
     background-color: #000;
+    text-decoration: none;
 }
 
 /* Container principal */
