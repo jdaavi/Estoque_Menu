@@ -151,19 +151,6 @@ body {
 
 .grafico-container {
     display: flex;
-    padding-left: 10px;
-    flex-direction: column;
-    align-items: center;
-    width: 20%;
-    height: 20%;
-    max-width: 300px;
-    max-height: 250px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.grafico-container {
-    display: flex;
     flex-direction: column;  /* Mudado para coluna, para colocar a legenda abaixo */
     align-items: center;
     justify-content: center;
@@ -174,7 +161,7 @@ body {
 }
 
 .grafico-container h2 {
-    margin-top: 20px;
+    margin-top: 10px; /* Diminui o espaço entre o título e o gráfico */
     font-size: 14px;
     color: #000000;
 }
