@@ -16,8 +16,7 @@ const showMenu = (toggleId, navId) => {
       setTimeout(function() {
         window.location.href = "/inicio"
     }, 500); 
-
-    }
+  }
   </script>
 
   showMenu("nav-toggle", "nav-menu");
