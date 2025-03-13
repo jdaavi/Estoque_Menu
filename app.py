@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib
 import os
+import requests
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Gera uma chave secreta aleatória
@@ -76,16 +78,25 @@ def login():
     login = request.form['login']
     senha = request.form['senha']
 
-    # Simulação de autenticação (substitua por verificação real do banco de dados)
-    if login == "Menu2025" and senha == "menu@2025":
+    # data_busca = f"""{
+    #     "Usuario":{login},
+    #     "Senha":{senha}
+    # }"""
 
-        hash_value = hashlib.sha256((login+senha).encode()).hexdigest()  # Cria um hash único
+    # busca = requests.request(method='GET',url='HTTP://10.10.10.10.107:5000/login')
+
+    # session['user'] = login
+    # session['hash'] = hash_value
+
+    if login == 'Menu@2025' and senha == '123456':
+        hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
         session['user'] = login
         session['hash'] = hash_value
-        return redirect(url_for('inicio'))  # Redireciona para a página inicial pós-login
+        return redirect(url_for('inicio'))
     else:
-        return "Usuário ou senha incorretos", 401  # Código 401 para indicar erro de autenticação
-    
+        return "usuario ou senha incorreta", 401
+
+
 @app.route('/nova_compra', methods =['GET','POST'])
 def nova_compra():
     if request.method == 'POST':
