@@ -49,6 +49,77 @@
                 </div>
             </div>
         </div>
+
+        <div class="product-table-container">
+            <h2>Ordem de Compra</h2>
+
+            <div class="filters">
+                <label for="sortByDate">Ordenar por Data:</label>
+                <select id="sortByDate">
+                    <option value="asc">Mais próximos</option>
+                    <option value="desc">Mais distantes</option>
+                </select>
+            </div>
+
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Ordem de compra</th>
+                        <th>Previsão de Entrega</th>
+                        <th>Status da compra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>005</td>
+                        <td>2025-03-20</td>
+                        <td class="status cancelada">Cancelada</td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>2025-03-22</td>
+                        <td class="status emitida">Emitida</td>
+                    </tr>
+                    <tr>
+                        <td>042</td>
+                        <td>2025-03-18</td>
+                        <td class="status recebida">Recebida</td>
+                    </tr>
+                    <tr>
+                        <td>137</td>
+                        <td>2025-03-25</td>
+                        <td class="status recusada">Recusada</td>
+                    </tr>
+
+                    <tr>
+                        <td>15</td>
+                        <td>2025-03-25</td>
+                        <td class="status cancelada">Cancelada</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <script>
+                // Script para ordenação da tabela por data
+                document.getElementById('sortByDate').addEventListener('change', function() {
+                    const rows = Array.from(document.querySelectorAll('.product-table tbody tr'));
+                    const sortBy = this.value;
+        
+                    rows.sort((a, b) => {
+                        const dateA = new Date(a.cells[1].textContent);
+                        const dateB = new Date(b.cells[1].textContent);
+        
+                        return sortBy === 'asc' ? dateA - dateB : dateB - dateA;
+                    });
+        
+                    // Atualiza a tabela com as linhas ordenadas
+                    const tbody = document.querySelector('.product-table tbody');
+                    tbody.innerHTML = '';
+                    rows.forEach(row => tbody.appendChild(row));
+                });
+            </script>
+
+        </div>
         
         <script>
             // Dados fictícios para o gráfico de pizza

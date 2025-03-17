@@ -206,3 +206,89 @@ body {
     margin: 0; /* Diminuindo a margem superior do gráfico */
     padding: 0;
 }
+
+.product-table-container {
+    margin-top: 30px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+}
+
+.product-table th, .product-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Filtros */
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.filters select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Efeito ao passar o mouse por uma linha */
+.product-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Estilos para o cabeçalho do gráfico */
+.grafico-container h2 {
+    margin-bottom: 10px;
+}
+
+/* Estilos para a coluna Status */
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+/* Status "Emitida" */
+.status.emitida {
+    background-color: #2a7dff;
+    color: #fff;
+}
+
+/* Status "Recebida" */
+.status.recebida {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* Status "Recusada" */
+.status.recusada {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+/* Status "Cancelada" */
+.status.cancelada {
+    background-color: #ff6a00;
+    color: #fff;
+}
+

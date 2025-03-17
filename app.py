@@ -92,7 +92,7 @@ def login():
         hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
         session['user'] = login
         session['hash'] = hash_value
-        return redirect(url_for('inicio'))
+        return redirect(url_for('inicio')) 
     else:
         return "usuario ou senha incorreta", 401
 
