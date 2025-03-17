@@ -149,15 +149,16 @@ body {
     margin-bottom: 30px; /* Aumentando a margem para criar mais espaço */
 }
 
-.grafico-container {
+.grafico-tabela-container {
     display: flex;
-    flex-direction: column;  /* Mudado para coluna, para colocar a legenda abaixo */
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-    max-width: 300px;
-    margin-top: 10px;
-    text-align: center;
+    gap: 20px; /* Espaçamento entre o gráfico e a tabela */
+    justify-content: space-between;
+    margin-top: 20px; /
+}
+
+.grafico-container {
+   flex: 1;
+   max-width: 45%;
 }
 
 .grafico-container h2 {
@@ -208,7 +209,11 @@ body {
 }
 
 .product-table-container {
-    margin-top: 30px;
+    flex: 1 1 45%;
+    max-width: 50%;
+    overflow: auto;
+    height: 300px;
+    margin-bottom: 20px;
 }
 
 .product-table {
@@ -225,7 +230,25 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 120px;
 }
+
+.product-table th:nth-child(1), .product-table td:nth-child(1) {
+    width: 50px; /* Largura da primeira coluna */
+}
+
+.product-table th:nth-child(2), .product-table td:nth-child(2) {
+    width: 50px; /* Largura da segunda coluna */
+}
+
+.product-table th:nth-child(3), .product-table td:nth-child(3) {
+    width: 50px; /* Largura da terceira coluna */
+}
+
+.product-table th:nth-child(4), .product-table td:nth-child(3) {
+    width: 50px; /* Largura da terceira coluna */
+}
+
 
 .product-table th {
     background-color: #f2f2f2;
@@ -291,4 +314,85 @@ body {
     background-color: #ff6a00;
     color: #fff;
 }
+
+.estoque-distribuicao {
+    flex: 1;
+    max-width: 50%;
+    margin-top: 20px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+/* Estilo para a seção de distribuição de estoque */
+.estoque-distribuicao {
+    margin-top: 20px;  /* Espaço entre o gráfico e a lista */
+    text-align: left; /* Deixe o texto alinhado à esquerda */
+    max-width: 400px; /* Limita a largura da lista */
+    margin-left: auto;
+    margin-right: auto; /* Centraliza a lista */
+}
+
+/* Estilo para a lista */
+.estoque-distribuicao ul {
+    list-style-type: none; /* Remove os marcadores da lista */
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo para cada item da lista */
+.estoque-distribuicao li {
+    display: flex;
+    justify-content: space-between;  /* Distribui os itens entre produto e porcentagem */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 8px;  /* Espaço entre os itens */
+    background-color: #f9f9f9;  /* Fundo claro */
+    transition: background-color 0.3s ease;  /* Efeito de transição ao passar o mouse */
+}
+
+/* Efeito de hover para os itens */
+.estoque-distribuicao li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Estilo para o nome do produto */
+.produto {
+    font-size: 16px;
+    font-weight: bold;
+    color: #9e1010; /* Cor destacada para os nomes dos produtos */
+}
+
+/* Estilo para a porcentagem */
+.percentagem {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding-left: 15px; /* Adiciona um espaço entre o nome e a porcentagem */
+}
+
+/* Adicionando uma barra de progresso ao lado da porcentagem */
+.estoque-distribuicao li {
+    position: relative;
+    padding-left: 40px; /* Espaço para a barra de progresso */
+}
+
+.estoque-distribuicao li .percentagem {
+    position: relative;
+    z-index: 1; /* Garante que o texto fique sobre a barra */
+}
+
+/* Barra de progresso */
+.estoque-distribuicao li::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #9e1010;
+    border-radius: 50%;
+}
+
 

@@ -40,6 +40,7 @@
             <input type="text" class="search" placeholder="Pesquisar Produto...">
         </div>
         
+        <div class="grafico-tabela-container">
         <div class="grafico-container">
             <h2>Distribuição Estoque</h2>
             <canvas id="graficoPizza"></canvas>
@@ -48,8 +49,18 @@
                     <p><strong>Capacidade ocupada: 100%</strong></p>
                 </div>
             </div>
+            <div class="estoque-distribuicao">
+                <h3>Capacidade do estoque:</h3>
+                <ul>
+                    <li><span class="produto">Setor A</span><span class="percentagem">40%</span></li>
+                    <li><span class="produto">Setor B</span><span class="percentagem">30%</span></li>
+                    <li><span class="produto">Setor C</span><span class="percentagem">15%</span></li>
+                    <li><span class="produto">Setor D</span><span class="percentagem">10%</span></li>
+                    <li><span class="produto">Setor E</span><span class="percentagem">5%</span></li>
+                </ul>
+            </div>
         </div>
-
+        
         <div class="product-table-container">
             <h2>Ordem de Compra</h2>
 
@@ -60,6 +71,7 @@
                     <option value="desc">Mais distantes</option>
                 </select>
             </div>
+        </div>
 
             <table class="product-table">
                 <thead>
