@@ -16,7 +16,9 @@
             <img src="/static/img/Logo menu.png" alt="Logo da empresa" class="logo">
         </div>
         <ul>
+            <li><a href="/estoque">Visão geral</a></li>
             <li><a href="#">Inventário</a></li>
+            <li><a href="/produtos">Produtos</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a href="/compras">Compras</a></li>
             <li><a href="#">Configuração</a></li>
@@ -25,10 +27,12 @@
     </div>
 
     <!-- Conteúdo principal -->
-    <div class="main-content">     
+    <div class="main-content"> 
+        <div class="legend-main">  
+        <h1>Visão geral</h1>
+        </div> 
             <div class="grafico-tabela-container">
                 <div class="grafico-container">
-                    <h2>Distribuição Estoque</h2>
                     <canvas id="graficoPizza"></canvas>
                 </div>
 
