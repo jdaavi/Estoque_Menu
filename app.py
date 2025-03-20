@@ -117,6 +117,7 @@ def login():
     #     session['user'] = login
     #     session['hash'] = hash_value
     #     return redirect(url_for('inicio')) 
+
     # else:
     #     return "usuario ou senha incorreta", 401
 
