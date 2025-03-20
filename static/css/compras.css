@@ -72,15 +72,19 @@ body {
 }
 
 .botao-voltar {
-    background-color: #000000;
-    color: white;
-    padding: 20px;
+    position: absolute; /* Posiciona o botão de maneira absoluta na sidebar */
+    bottom: 20px;  /* Fixa o botão na parte inferior da sidebar */
+    left: 20px; /* Alinha o botão à esquerda */
+    padding: 10px;
     width: 100px;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    border-radius: 20px;
     text-decoration: none;
-    border-radius: 50px;
-    margin-top:auto;
-    text-align: center;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
 .botao-voltar a {

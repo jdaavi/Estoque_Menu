@@ -25,11 +25,12 @@ body {
     top: 0;
     left: 0;
     padding-top: 20px;
+    align-items: center;
 }
 
 .sidebar .logo-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .sidebar .logo {
@@ -64,18 +65,26 @@ body {
 
 /* Botão de Sair - Movido para mais cima e bordas arredondadas */
 .sair {
-    position: absolute;
-    bottom: 20px;
-    width: 100px;
-    left: 75px;
-    background-color: #000;
-    border-radius: 25px; /* Mais arredondado */
+    bottom: 40px;
     padding: 10px;
-    text-align: center;
-}
+    width: 100px;
+    left: 60px;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+} 
 
 .sair:hover {
-    background-color: #333;
+    background-color: #000000;
+}
+
+.sair i {
+    margin-right: 5px;
 }
 
 /* Animação de fade out */
