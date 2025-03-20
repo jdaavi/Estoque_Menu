@@ -1,11 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 import hashlib
 import os
 import requests
+import redis
+
 
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)  # Gera uma chave secreta aleatória
+
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_KEY_PREFIX'] = 'sess:'
+app.config['SESSION_REDIS'] = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 produtos = [
     {"n_ordem": "038", "data_compra": "02/03/2025", "entrega": "05/02/2025", "fornecedor": "Nagaura", "documento": "nfe-324", "recebimento": "06/02/2025", "destino": "Aldeota", "valor": "45,000.00", "categoria": "Hortifruti", "situacao": "Entregue", "valor_recebimento": "250.00", "situacao_compras": "Em aberto"},
@@ -20,7 +27,7 @@ def index():
 # Página de início (após login)
 @app.route('/inicio')
 def inicio():
-    if 'hash' not in session:
+    if not 'token' or 'token' not in session:
         return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('inicio.html')
@@ -28,7 +35,7 @@ def inicio():
 # Página de Estoque (após login)
 @app.route('/estoque')
 def estoque():
-    if 'hash' not in session:
+    if not 'token' or 'token' not in session:
         return redirect(url_for('index'))  # CORRIGIDO
     
     return render_template('estoque.html')
@@ -36,7 +43,7 @@ def estoque():
 # Página Financeiro (após login)
 @app.route('/financeiro')
 def financeiro():
-    if 'hash' not in session:
+    if not 'token' or 'token' not in session:
         return redirect(url_for('index'))  # CORRIGIDO
     
     return render_template('financeiro.html')
@@ -47,21 +54,21 @@ def transferencia():
 
 @app.route('/produtos')
 def analise_produtos():
-    if 'hash' not in session:
+    if 'token' not in session:
         return redirect(url_for('index'))
     
     return render_template('produtos.html')
 
 @app.route('/compras')
 def compras():
-    if 'hash' not in session:
+    if 'token' not in session:
         return redirect(url_for('index'))
     
     return render_template('compras.html')
 
 @app.route('/cadastro')
 def cadastro():
-    if 'hash' not in session:
+    if 'token' not in session:
         return redirect(url_for('index'))
     
     return render_template('cadastro.html')
@@ -78,23 +85,36 @@ def login():
     login = request.form['login']
     senha = request.form['senha']
 
-    # data_busca = f"""{
-    #     "Usuario":{login},
-    #     "Senha":{senha}
-    # }"""
+    data = requests.request(method='POST',url='HTTP://10.10.10.10.107:5001/login',json={"username": login, "senha": senha})
+    response_data = data.json()  # Converte para dicionário Python
 
-    # busca = requests.request(method='GET',url='HTTP://10.10.10.10.107:5000/login')
+    if data.status_code == 200:
 
-    # session['user'] = login
-    # session['hash'] = hash_value
+        user_id = response_data['user_id']
+        token = response_data['token']
 
-    if login == 'Menu@2025' and senha == '123456':
-        hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
-        session['user'] = login
-        session['hash'] = hash_value
+        if not token:
+            return jsonify({"error": "Falha ao obter token"}), 500
+
+        session[user_id] = token  # Armazena o token na sessão Redis
+        session['nivel'] = response_data['nivel']
         return redirect(url_for('inicio')) 
-    else:
-        return "usuario ou senha incorreta", 401
+    
+    if data.status_code == 404:
+        return jsonify(data)
+    
+    if data.status_code == 401:
+        return jsonify(data)
+    
+
+
+    # if login == 'Menu@2025' and senha == '123456':
+    #     hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
+    #     session['user'] = login
+    #     session['hash'] = hash_value
+    #     return redirect(url_for('inicio')) 
+    # else:
+    #     return "usuario ou senha incorreta", 401
 
 
 @app.route('/nova_compra', methods =['GET','POST'])
