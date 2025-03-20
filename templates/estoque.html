@@ -16,7 +16,9 @@
             <img src="/static/img/Logo menu.png" alt="Logo da empresa" class="logo">
         </div>
         <ul>
+            <li><a href="/estoque">Visão geral</a></li>
             <li><a href="#">Inventário</a></li>
+            <li><a href="/produtos">Produtos</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a href="/compras">Compras</a></li>
             <li><a href="#">Configuração</a></li>
@@ -25,45 +27,30 @@
     </div>
 
     <!-- Conteúdo principal -->
-    <div class="main-content">
+    <div class="main-content"> 
+        <div class="legend-main">  
+        <h1>Visão geral</h1>
+        </div> 
+            <div class="grafico-tabela-container">
+                <div class="grafico-container">
+                    <canvas id="graficoPizza"></canvas>
+                </div>
 
-        <div class="button-container">
-            <a href="{{ url_for('cadastro') }}">
-            <button class="button">Cadastro</button>
-        </a>
-            <button class="button">Importar</button>
-            <button class="button">Exportar</button>
-        </div>
-
-        <div class="search-container">
-            <i class="fas fa-search"></i> <!-- Ícone da lupa -->
-            <input type="text" class="search" placeholder="Pesquisar Produto...">
-        </div>
-        
-        <div class="grafico-tabela-container">
-        <div class="grafico-container">
-            <h2>Distribuição Estoque</h2>
-            <canvas id="graficoPizza"></canvas>
-            <div class="legend-container">
-                <div class="total">
-                    <p><strong>Capacidade ocupada: 100%</strong></p>
+                <div class="estoque-distribuicao">
+                    <h3>Capacidade do estoque:</h3>
+                    <ul>
+                        <li><span class="produto">Setor A</span><span class="percentagem">40%</span></li>
+                        <li><span class="produto">Setor B</span><span class="percentagem">30%</span></li>
+                        <li><span class="produto">Setor C</span><span class="percentagem">15%</span></li>
+                        <li><span class="produto">Setor D</span><span class="percentagem">10%</span></li>
+                        <li><span class="produto">Setor E</span><span class="percentagem">5%</span></li>
+                    </ul>
                 </div>
             </div>
-            <div class="estoque-distribuicao">
-                <h3>Capacidade do estoque:</h3>
-                <ul>
-                    <li><span class="produto">Setor A</span><span class="percentagem">40%</span></li>
-                    <li><span class="produto">Setor B</span><span class="percentagem">30%</span></li>
-                    <li><span class="produto">Setor C</span><span class="percentagem">15%</span></li>
-                    <li><span class="produto">Setor D</span><span class="percentagem">10%</span></li>
-                    <li><span class="produto">Setor E</span><span class="percentagem">5%</span></li>
-                </ul>
-            </div>
-        </div>
-        
+            
         <div class="product-table-container">
             <h2>Ordem de Compra</h2>
-
+            
             <div class="filters">
                 <label for="sortByDate">Ordenar por Data:</label>
                 <select id="sortByDate">
@@ -71,7 +58,7 @@
                     <option value="desc">Mais distantes</option>
                 </select>
             </div>
-        </div>
+        
 
             <table class="product-table">
                 <thead>
@@ -110,6 +97,7 @@
                     </tr>
                 </tbody>
             </table>
+            
 
             <script>
                 // Script para ordenação da tabela por data
