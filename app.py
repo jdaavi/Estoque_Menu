@@ -85,27 +85,31 @@ def login():
     login = request.form['login']
     senha = request.form['senha']
 
-    data = requests.request(method='POST',url='HTTP://10.10.10.10.107:5001/login',json={"username": login, "senha": senha})
-    response_data = data.json()  # Converte para dicionário Python
+   
+    if not login or not senha:
+        return jsonify({"error": "Campos login e senha são obrigatórios"}), 400
 
-    if data.status_code == 200:
+    response = requests.post('http://10.10.10.107:5001/login', json={"username": login, "senha": senha})
 
-        user_id = response_data['user_id']
-        token = response_data['token']
+    if response.status_code == 200:
+        data = response.json()  # Converte a resposta para dicionário
+
+        token = data.get('token')
+        nivel = data.get('nivel')
 
         if not token:
             return jsonify({"error": "Falha ao obter token"}), 500
 
-        session[user_id] = token  # Armazena o token na sessão Redis
-        session['nivel'] = response_data['nivel']
-        return redirect(url_for('inicio')) 
-    
-    if data.status_code == 404:
-        return jsonify(data)
-    
-    if data.status_code == 401:
-        return jsonify(data)
-    
+        # Armazena informações na sessão
+        session['token'] = token
+        session['nivel'] = nivel
+
+        return redirect(url_for('inicio')) ,302
+
+    if response.status_code in [401, 404]:
+        data = response.json()  # Converte a resposta para dicionário    
+        menssage = data.get('error', "Erro desconhecido")
+        return jsonify({"error": menssage}), response.status_code   
 
 
     # if login == 'Menu@2025' and senha == '123456':
@@ -156,4 +160,4 @@ def nova_compra():
 
 # Inicia o servidor Flask
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run()
