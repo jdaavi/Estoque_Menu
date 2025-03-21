@@ -197,4 +197,7 @@ def session_test():
 
 # Inicia o servidor Flask
 if __name__ == '__main__':
-    app.run(host='10.10.10.107', port='5500',debug=True)
+    if mode == 'PRD':
+        app.run()
+    else:
+        app.run(host='0.0.0.0', port='5500',debug=True)
