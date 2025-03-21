@@ -3,16 +3,23 @@ import hashlib
 import os
 import requests
 import redis
+import dotenv
 
+mode = 'DEV'
+
+
+dotenv.load_dotenv()
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'chave_super_secreta')  # Define a chave secreta
 
-app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_PERMANENT'] = False
-app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_KEY_PREFIX'] = 'sess:'
-app.config['SESSION_REDIS'] = redis.StrictRedis(host='localhost', port=6379, db=0)
+if mode == 'PRD':
+    app.config['SESSION_TYPE'] = 'redis'
+    app.config['SESSION_PERMANENT'] = False
+    app.config['SESSION_USE_SIGNER'] = True
+    app.config['SESSION_KEY_PREFIX'] = 'sess:'
+    app.config['SESSION_REDIS'] = redis.StrictRedis(host='10.10.10.107', port=6379, db=0)
 
 produtos = [
     {"n_ordem": "038", "data_compra": "02/03/2025", "entrega": "05/02/2025", "fornecedor": "Nagaura", "documento": "nfe-324", "recebimento": "06/02/2025", "destino": "Aldeota", "valor": "45,000.00", "categoria": "Hortifruti", "situacao": "Entregue", "valor_recebimento": "250.00", "situacao_compras": "Em aberto"},
@@ -27,24 +34,36 @@ def index():
 # Página de início (após login)
 @app.route('/inicio')
 def inicio():
-    if not 'token' or 'token' not in session:
-        return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
-    
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+       
     return render_template('inicio.html')
 
 # Página de Estoque (após login)
 @app.route('/estoque')
 def estoque():
-    if not 'token' or 'token' not in session:
-        return redirect(url_for('index'))  # CORRIGIDO
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('estoque.html')
 
 # Página Financeiro (após login)
 @app.route('/financeiro')
 def financeiro():
-    if not 'token' or 'token' not in session:
-        return redirect(url_for('index'))  # CORRIGIDO
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('financeiro.html')
 
@@ -54,22 +73,34 @@ def transferencia():
 
 @app.route('/produtos')
 def analise_produtos():
-    if 'token' not in session:
-        return redirect(url_for('index'))
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('produtos.html')
 
 @app.route('/compras')
 def compras():
-    if 'token' not in session:
-        return redirect(url_for('index'))
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('compras.html')
 
 @app.route('/cadastro')
 def cadastro():
-    if 'token' not in session:
-        return redirect(url_for('index'))
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
     return render_template('cadastro.html')
 
@@ -85,42 +116,41 @@ def login():
     login = request.form['login']
     senha = request.form['senha']
 
-   
-    if not login or not senha:
-        return jsonify({"error": "Campos login e senha são obrigatórios"}), 400
+    if mode == 'PRD':
+        if not login or not senha:
+            return jsonify({"error": "Campos login e senha são obrigatórios"}), 400
 
-    response = requests.post('http://10.10.10.107:5001/login', json={"username": login, "senha": senha})
+        response = requests.post('http://10.10.10.107:5001/login', json={"username": login, "senha": senha})
 
-    if response.status_code == 200:
-        data = response.json()  # Converte a resposta para dicionário
+        if response.status_code == 200:
+            data = response.json()  # Converte a resposta para dicionário
 
-        token = data.get('token')
-        nivel = data.get('nivel')
+            token = data.get('token')
+            nivel = data.get('nivel')
+            user_id = data.get('user_id')
 
-        if not token:
-            return jsonify({"error": "Falha ao obter token"}), 500
+            if not token:
+                return jsonify({"error": "Falha ao obter token"}), 500
 
-        # Armazena informações na sessão
-        session['token'] = token
-        session['nivel'] = nivel
+            # Armazena informações na sessão
+            session[user_id] = token
+            session['nivel'] = nivel
 
-        return redirect(url_for('inicio')) ,302
+            return redirect(url_for('inicio')) ,302
 
-    if response.status_code in [401, 404]:
-        data = response.json()  # Converte a resposta para dicionário    
-        menssage = data.get('error', "Erro desconhecido")
-        return jsonify({"error": menssage}), response.status_code   
-
-
-    # if login == 'Menu@2025' and senha == '123456':
-    #     hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
-    #     session['user'] = login
-    #     session['hash'] = hash_value
-    #     return redirect(url_for('inicio')) 
-
-    # else:
-    #     return "usuario ou senha incorreta", 401
-
+        if response.status_code in [401, 404]:
+            data = response.json()  # Converte a resposta para dicionário    
+            menssage = data.get('error', "Erro desconhecido")
+            return jsonify({"error": menssage}), response.status_code   
+    
+    else:
+        if login == 'Menu@2025' and senha == '123456':
+            hash_value = hashlib.sha256((login+senha).encode()).hexdigest()
+            session['user'] = login
+            session['hash'] = hash_value
+            return redirect(url_for('inicio')) 
+        else:
+            return "usuario ou senha incorreta", 401
 
 @app.route('/nova_compra', methods =['GET','POST'])
 def nova_compra():
@@ -159,6 +189,12 @@ def nova_compra():
 
     return render_template('nova_compra.html')
 
+@app.route('/session_test')
+def session_test():
+    return jsonify({
+        "session_data": dict(session)  # Verificar se os dados da sessão foram salvos
+    })
+
 # Inicia o servidor Flask
 if __name__ == '__main__':
-    app.run()
+    app.run(host='10.10.10.107', port='5500',debug=True)
