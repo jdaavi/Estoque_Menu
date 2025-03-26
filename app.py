@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session,jsonify
+from flask_session import Session
 import hashlib
 import os
 import requests
 import redis
 import dotenv
 
-mode = 'DEV'
+mode = 'PRD'
 
 
 dotenv.load_dotenv()
@@ -20,6 +21,8 @@ if mode == 'PRD':
     app.config['SESSION_USE_SIGNER'] = True
     app.config['SESSION_KEY_PREFIX'] = 'sess:'
     app.config['SESSION_REDIS'] = redis.StrictRedis(host='10.10.10.107', port=6379, db=0)
+
+    Session(app)
 
 produtos = [
     {"n_ordem": "038", "data_compra": "02/03/2025", "entrega": "05/02/2025", "fornecedor": "Nagaura", "documento": "nfe-324", "recebimento": "06/02/2025", "destino": "Aldeota", "valor": "45,000.00", "categoria": "Hortifruti", "situacao": "Entregue", "valor_recebimento": "250.00", "situacao_compras": "Em aberto"},
