@@ -20,7 +20,7 @@ if mode == 'PRD':
     app.config['SESSION_PERMANENT'] = False
     app.config['SESSION_USE_SIGNER'] = True
     app.config['SESSION_KEY_PREFIX'] = 'sess:'
-    app.config['SESSION_REDIS'] = redis.StrictRedis(host='10.10.10.107', port=6379, db=0)
+    app.config['SESSION_REDIS'] = redis.StrictRedis(host=str(os.getenv('REDIS_HOST')),port=int(os.getenv('REDIS_PORT')), db=int(os.getenv('REDIS_DB')))
 
     Session(app)
 
@@ -202,6 +202,6 @@ def session_test():
 # Inicia o servidor Flask
 if __name__ == '__main__':
     if mode == 'PRD':
-        app.run(debug=True)
+        app.run()
     else:
         app.run(host='0.0.0.0', port='5500',debug=True)
