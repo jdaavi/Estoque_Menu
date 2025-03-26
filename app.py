@@ -32,7 +32,7 @@ produtos = [
 # Página inicial (Login)
 @app.route('/')
 def index():
-    return render_template('index.html')  # O HTML da página de login
+    return render_template('login/index.html')  # O HTML da página de login
 
 # Página de início (após login)
 @app.route('/inicio')
@@ -44,7 +44,7 @@ def inicio():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
        
-    return render_template('inicio.html')
+    return render_template('login/inicio.html')
 
 # Página de Estoque (após login)
 @app.route('/estoque')
@@ -56,7 +56,7 @@ def estoque():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
-    return render_template('estoque.html')
+    return render_template('estoque/estoque.html')
 
 # Página Financeiro (após login)
 @app.route('/financeiro')
@@ -68,11 +68,11 @@ def financeiro():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
-    return render_template('financeiro.html')
+    return render_template('financeiro/financeiro.html')
 
 @app.route('/transferencia')
 def transferencia():
-    return render_template('transferencia.html')
+    return render_template('financeiro/transferencia.html')
 
 @app.route('/produtos')
 def analise_produtos():
@@ -83,7 +83,7 @@ def analise_produtos():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
-    return render_template('produtos.html')
+    return render_template('estoque/produtos.html')
 
 @app.route('/compras')
 def compras():
@@ -94,7 +94,7 @@ def compras():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
-    return render_template('compras.html')
+    return render_template('compras/compras.html')
 
 @app.route('/cadastro')
 def cadastro():
@@ -105,7 +105,7 @@ def cadastro():
         if 'hash' not in session:
             return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
     
-    return render_template('cadastro.html')
+    return render_template('estoque/cadastro.html')
 
 # Logout (Sair)
 @app.route('/sair')
@@ -190,7 +190,7 @@ def nova_compra():
         produtos.append(nova_compra)
         return redirect(url_for('compras'))
 
-    return render_template('nova_compra.html')
+    return render_template('compras/nova_compra.html')
 
 @app.route('/session_test')
 def session_test():
