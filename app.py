@@ -136,7 +136,8 @@ def login():
                 return jsonify({"error": "Falha ao obter token"}), 500
 
             # Armazena informações na sessão
-            session[user_id] = token
+            session['token'] = token
+            session['user_id'] = user_id
             session['nivel'] = nivel
 
             return redirect(url_for('inicio')) ,302
@@ -201,6 +202,6 @@ def session_test():
 # Inicia o servidor Flask
 if __name__ == '__main__':
     if mode == 'PRD':
-        app.run()
+        app.run(debug=True)
     else:
         app.run(host='0.0.0.0', port='5500',debug=True)
