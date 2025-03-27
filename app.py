@@ -98,7 +98,7 @@ def cadastro():
 @app.route('/usuario')
 @verificacao_token
 def usuario():
-    return render_template('cadastro/usuario.html')
+    return render_template('rh/rh.html')
 
 # Logout (Sair)
 @app.route('/sair')
