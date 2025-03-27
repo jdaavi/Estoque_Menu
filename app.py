@@ -44,8 +44,9 @@ def verificacao_token(func):
         if response_data.status_code == 200:
             return func(*args, **kwargs)  # Se o token for válido, chama a função original
         else:
-            # Se o token for inválido, retorna a resposta de erro
-            return response_data
+            data = response_data.json()
+            msg = data.get('msg', "error")
+            return jsonify({"msg":msg}),400
 
     return wrapper
 
@@ -130,13 +131,13 @@ def login():
         response = make_response(redirect(url_for('inicio')) ,302)
 
         response.set_cookie(
-        "auth_token", token,
+        "auth_token", str(token),
         httponly=True,  # Protege contra JavaScript
         samesite="Strict",  # Restringe envio do cookie
         )
 
         response.set_cookie(
-        "nivel",nivel,
+        "nivel",str(nivel),
         httponly=True,  # Protege contra JavaScript
         samesite="Strict",  # Restringe envio do cookie
         )
