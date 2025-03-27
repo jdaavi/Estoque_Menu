@@ -107,6 +107,18 @@ def cadastro():
     
     return render_template('estoque/cadastro.html')
 
+
+@app.route('/usuario')
+def usuario():
+    if mode == 'PRD':
+        if 'token' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    else:
+        if 'hash' not in session:
+            return redirect(url_for('index'))  # CORRIGIDO: Redirecionar para o login
+    
+    return render_template('cadastro/usuario.html')
+
 # Logout (Sair)
 @app.route('/sair')
 def sair():

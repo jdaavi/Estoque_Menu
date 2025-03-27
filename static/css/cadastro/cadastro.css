@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    background-color: #8b0f0f;
+    color: white;
+    width: 250px;
+    padding: 40px 20px 20px 20px;
+    height: 100%;
+    position: fixed;
+}
+
+.sidebar-header h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nav {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 60px;
+}
+
+.nav li {
+    margin: 15px 0;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav a:hover {
+    border-radius: 30px;
+    background-color: #000000;
+}
+
+.sair-button {
+    background-color: #8b0f0f;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+
+}
+
+.sair-button:hover {
+    background-color: #d43f3f;  
+    border-radius: 30px;  
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+    background-color: #f4f4f4;
+    flex-grow: 1;
+}
+
+.overview {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.overview-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 30%;
+}
+
+#form-area {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .overview {
+        flex-direction: column;
+    }
+
+    .overview-box {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
