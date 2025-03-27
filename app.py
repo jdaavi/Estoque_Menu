@@ -143,8 +143,8 @@ def login():
 
         return response
 
-    if response.status_code in [401, 404]:
-        data = response.json()  # Converte a resposta para dicionário    
+    if response_data.status_code in [401, 404]:
+        data = response_data.json()  # Converte a resposta para dicionário    
         menssage = data.get('error', "Erro desconhecido")
         return jsonify({"error": menssage}), response.status_code   
 
