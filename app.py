@@ -50,6 +50,64 @@ def verificacao_token(func):
 
     return wrapper
 
+def consultar_empresa(id_empresa):
+
+    auth_token = request.cookies.get("auth_token")
+
+    url =  url = f"{http://10.10.10.107:5001}/empresa/{id_empresa}"
+    headers = {
+        "Authorization": f"Bearer {auth_token}",
+        "Content-Type": "application/json"
+    }
+
+    response_consulta = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        dados_empresa = response.json()
+        return dados_empresa
+    elif response.status_code == 401:
+        return {"erro": "Erro de autenticação. Verifique o token."}
+    else:
+        return {"erro": "Empresa não encontrada ou não existe."}
+    
+def deletar_empresa(id_empresa):
+      
+     auth_token = request.cookies.get("auth_token")
+
+     url =  url = f"{http://10.10.10.107:5001}/empresa/{id_empresa}"
+     headers = {
+        "Authorization": f"Bearer {auth_token}",
+        "Content-Type": "application/json"
+    }
+     
+     response_deletar = requests.delete(url, headers=headers)
+
+     if response.status_code == 200:
+            return {"sucesso": "Empresa deletada com sucesso!"}
+     elif response.status_code == 401:
+            return {"erro": "Erro de autenticação. Verifique o token."}
+     else:
+            return {"erro": f"Erro no processo: {response.json().get('msg', 'Erro desconhecido')}"}
+
+def atualizar_empresa(id_empresa, dados_atuais):
+     
+     auth_token = request.cookies.get("auth_token")
+
+     url = f"{http://10.10.10.107:5001}/empresa/{id_empresa}"
+     headers = {
+        "Authorization": f"Bearer {auth_token}",
+        "Content-Type": "application/json"
+    }
+    
+     response_atualizar = requests.patch(url, json=dados_atuais, headers=headers)
+
+     if response.status_code == 200:
+        return {"sucesso": "Empresa atualizada com sucesso!"}
+     elif response.status_code == 400:
+        return {"erro": f"Erro no processo: {response.json().get('msg', 'Erro desconhecido')}"}
+     else:
+        return {"erro": f"Erro inesperado: {response.status_code}"}
+     
 
 # Página inicial (Login)
 @app.route('/')
