@@ -162,6 +162,11 @@ def cadastro():
 def usuario():
     return render_template('rh/rh.html')
 
+@app.route('/funcionario')
+@verificacao_token
+def funcionario():
+    return render_template('rh/funcionarios.html')
+
 # Logout (Sair)
 @app.route('/sair')
 def sair():

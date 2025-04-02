@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários</title>
+
+    <link rel="stylesheet" href="css/pag1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+
+        nav#sidebar {
+            background-color: #8a0202;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            color: white;
+            padding-top: 20px;
+        }
+
+        nav#sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav#sidebar ul li {
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav#sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav#sidebar ul li a:hover {
+            background-color: #850707;
+            border-radius: 5px;
+        }
+
+        main {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #910707;
+            color: white;
+            border-radius: 10px;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        header ul {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+
+        header ul li {
+            margin-left: 20px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .filter-item {
+            margin-right: 20px;
+            margin-bottom: 20px;
+            flex: 1 1 150px;
+        }
+
+        .filter-item label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .filter-item select, .filter-item input {
+            display: block;
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            font-size: 14px;
+        }
+
+        .filter-item select:focus, .filter-item input:focus {
+            outline: none;
+        }
+
+        #grade-elements {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #grade-elements .dynamic-item {
+            background-color: white;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 15px;
+            width: calc(50% - 20px);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        #grade-elements .dynamic-item:hover {
+            transform: translateY(-5px);
+        }
+
+        #grade-elements .dynamic-item img {
+            border-radius: 50%;
+            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        #grade-elements .dynamic-item .dynamic-text {
+            flex-grow: 1;
+        }
+
+        #grade-elements .dynamic-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Funcionários</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <img src="static/img/logo.png" alt="Logo">
+            <ul>
+                <li>Funcionários</li>
+                <li><i class="fa-solid fa-bars"></i></li>
+            </ul>
+        </header>
+
+        <section class="filters">
+            <div class="filter-item">
+                <label for="unidade"><strong>Unidade</strong></label>
+                <select id="unidade">
+                    <option value="Todos">Todos</option>
+                    <option value="Aldeota">Aldeota</option>
+                    <option value="Parquelandia">Parquelandia</option>
+                    <option value="Sul">Sul</option>
+                </select>
+            </div>
+            
+            <div class="filter-item">
+                <label for="cargos"><strong>Cargo</strong></label>
+                <select id="cargos">
+                    <option value="Todos">Todos</option>
+                    <option value="Auxiliar cozinha">Auxiliar cozinha</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Atendente">Atendente</option>
+                </select>
+            </div>
+
+            <div class="filter-item">
+                <label for="idInput"><strong>ID</strong></label>
+                <input type="number" id="idInput" placeholder="Pesquisar por ID...">
+            </div>
+
+            <div class="filter-item">
+                <label for="searchInput"><strong>Busca</strong></label>
+                <input type="text" id="searchInput" placeholder="Pesquisar...">
+            </div>
+        </section>
+
+        <ul id="grade-elements"></ul>
+    </main>
+
+    <script>
+        const grupo_itens = {
+            '0001': { "nome": "Erick Sanderson Silva Vasconcelos", "dat_nasc": "2004-03-31", "Unidade": "Aldeota", "Cargo": "Atendente", "cod_int": 145 },
+            '0002': { "nome": "Jonas Rubens Teixeira", "dat_nasc": "2000-09-24", "Unidade": "Parquelandia", "Cargo": "Atendente", "cod_int": 146 },
+            '0003': { "nome": "Julio Ruan Domocrates", "dat_nasc": "2000-10-24", "Unidade": "Sul", "Cargo": "Auxiliar cozinha", "cod_int": 147 },
+            '0004': { "nome": "Denys Robson Duarte", "dat_nasc": "2004-09-24", "Unidade": "Sul", "Cargo": "Supervisor", "cod_int": 148 }
+        };
+
+        function criacaoElementos(filtroUnidade, filtroCargo, filtroBusca, filtroId) {
+            const blocohtml = document.getElementById("grade-elements");
+
+            let htmlContent = "";
+            const valores = Object.values(grupo_itens);
+
+            const itemsFiltrados = valores.filter(({ Unidade, Cargo, nome, cod_int }) => {
+                const filtroUnidadeValido = filtroUnidade === "Todos" || Unidade === filtroUnidade;
+                const filtroCargoValido = filtroCargo === "Todos" || Cargo === filtroCargo;
+                const filtroBuscaValido = filtroBusca === "" || nome.toLowerCase().includes(filtroBusca.toLowerCase());
+                const filtroIdValido = filtroId === "" || cod_int.toString() === filtroId.toString();
+
+                return filtroUnidadeValido && filtroCargoValido && filtroBuscaValido && filtroIdValido;
+            });
+
+            itemsFiltrados.forEach(({ nome, dat_nasc, Unidade, Cargo, cod_int }) => {
+                htmlContent += `
+                    <li class="dynamic-item">
+                        <img class="dynamic-img" src="static/img/internals/${cod_int}.png" alt="${nome}">
+                        <div class="dynamic-text">
+                            <p><strong>Func:</strong> ${nome}</p>
+                            <p><strong>Data Nasc:</strong> ${dat_nasc}</p>
+                            <p><strong>Cargo:</strong> ${Cargo}</p>
+                            <p><strong>Código:</strong> ${cod_int}</p>
+                        </div>
+                    </li>
+                `;
+            });
+            blocohtml.innerHTML = htmlContent;
+        }
+
+        $(document).ready(function() {
+            $("#unidade, #cargos").select2({ placeholder: "Selecione uma opção", allowClear: true });
+
+            $("#unidade, #cargos").on('change', function() {
+                const filtroUnidade = $("#unidade").val();
+                const filtroCargo = $("#cargos").val();
+                const filtroBusca = $("#searchInput").val();
+                const filtroId = $("#idInput").val();
+                criacaoElementos(filtroUnidade, filtroCargo, filtroBusca, filtroId);
+            });
+
+            $("#searchInput, #idInput").on('input', function() {
+                const filtroUnidade = $("#unidade").val();
+                const filtroCargo = $("#cargos").val();
+                const filtroBusca = $("#searchInput").val();
+                const filtroId = $("#idInput").val();
+                criacaoElementos(filtroUnidade, filtroCargo, filtroBusca, filtroId);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => criacaoElementos("Todos", "Todos", "", ""));
+    </script>
+</body>
+</html>
