@@ -167,6 +167,11 @@ def usuario():
 def funcionario():
     return render_template('rh/funcionarios.html')
 
+@app.route('/registro')
+@verificacao_token
+def registro():
+    return render_template('rh/registro.html')
+
 # Logout (Sair)
 @app.route('/sair')
 def sair():
