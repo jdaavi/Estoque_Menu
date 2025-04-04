@@ -1,0 +1,25 @@
+{
+  "name": "estoque",
+  "version": "1.0.0",
+  "description": "Este é um sistema de gerenciamento de estoque desenvolvido utilizando **HTML, CSS e JavaScript**. O sistema permite controlar o inventário de produtos, registrar entradas e saídas, e visualizar informações detalhadas sobre os itens em estoque. Além de possuir abas extras para o Setor de Compras emitir solicitações\r para novos pedidos de compras de acordo com a necessidade do estoque e uma área destinada ao setor financeiro para análise dos valores referentes a compra dos produtos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdaavi/Estoque_Menu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdaavi/Estoque_Menu/issues"
+  },
+  "homepage": "https://github.com/jdaavi/Estoque_Menu#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.14.1"
+  }
+}

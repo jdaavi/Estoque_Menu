@@ -46,5 +46,85 @@
     </div>
 
     <script src="/js/cadastro.js"></script>
+
+    <script>
+        // Função para obter a contagem de unidades, departamentos e funcionários
+        function getCounts() {
+            fetch('/api/stats')  // Vamos supor que você tem um endpoint de API que retorna as contagens
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("unidades-count").textContent = data.unidades;
+                    document.getElementById("departamentos-count").textContent = data.departamentos;
+                    document.getElementById("funcionarios-count").textContent = data.funcionarios;
+                })
+                .catch(error => console.error('Erro ao carregar os dados de contagem:', error));
+        }
+
+        // Função para carregar os formulários de cadastro
+        function loadForm(formType) {
+            let formArea = document.getElementById("form-area");
+            switch (formType) {
+                case 'unidades':
+                    formArea.innerHTML = `
+                        <h3>Cadastro de Unidades</h3>
+                        <form id="unidade-form">
+                            <label for="unidade-name">Nome da Unidade:</label>
+                            <input type="text" id="unidade-name" required>
+                            <button type="submit">Cadastrar</button>
+                        </form>
+                    `;
+                    break;
+                case 'departamentos':
+                    formArea.innerHTML = `
+                        <h3>Cadastro de Departamentos</h3>
+                        <form id="departamento-form">
+                            <label for="departamento-name">Nome do Departamento:</label>
+                            <input type="text" id="departamento-name" required>
+                            <button type="submit">Cadastrar</button>
+                        </form>
+                    `;
+                    break;
+                case 'funcionarios':
+                    formArea.innerHTML = `
+                        <h3>Cadastro de Funcionários</h3>
+                        <form id="funcionario-form">
+                            <label for="funcionario-name">Nome do Funcionário:</label>
+                            <input type="text" id="funcionario-name" required>
+                            <label for="funcionario-cargo">Cargo:</label>
+                            <input type="text" id="funcionario-cargo" required>
+                            <button type="submit">Cadastrar</button>
+                        </form>
+                    `;
+                    break;
+                default:
+                    formArea.innerHTML = '<p>Selecione uma opção do menu para cadastro.</p>';
+            }
+        }
+
+        // Função para manipular a navegação e mostrar o formulário correspondente
+        document.getElementById("unidades").addEventListener("click", function() {
+            loadForm("unidades");
+        });
+
+        document.getElementById("departamentos").addEventListener("click", function() {
+            loadForm("departamentos");
+        });
+
+        document.getElementById("funcionaios").addEventListener("click", function() {
+            loadForm("funcionarios");
+        });
+
+        // Função para simular a saída (logout)
+        document.getElementById("Sair").addEventListener("click", function() {
+            // Aqui você pode adicionar um comportamento de logout, como redirecionamento
+            window.location.href = '/login';  // Redireciona para a página de login
+        });
+
+        // Carregar as contagens ao iniciar a página
+        document.addEventListener("DOMContentLoaded", function() {
+            getCounts();
+        });
+    </script>
+
 </body>
 </html>
