@@ -220,6 +220,87 @@ def login():
         data = response_data.json()  # Converte a resposta para dicionário    
         menssage = data.get('error', "Erro desconhecido")
         return jsonify({"error": menssage}), response.status_code   
+    
+@app.route('/funcionarios/list', methods=['GET'])
+@verificacao_token
+def listar_funcionarios():
+    schema = os.getenv("DB_SCHEMA")
+    query = f"SELECT * FROM {schema}.funcionarios"
+
+    con = Connection(
+            my_host=os.getenv('HOST'),
+            db_name=os.getenv('DB_NAME'),
+            my_user=os.getenv('USER'),
+            my_password=os.getenv('PASSWORD')
+        )
+    conn = con.con
+    cur = con.cur
+
+    try:
+        cur.execute(query)
+        funcionarios = cur.fetchall()
+
+        funcionarios_data = []
+        for funcionario in funcionarios:
+            funcionarios_data.append({
+                'id': funcionario[0],
+                'nome_funcionario': funcionario[1],
+                'cargo': funcionario[2],
+                'empresa': funcionario[3],
+                'data_nascimento': funcionario[4],
+                'cpf': funcionario[5],
+                'situacao': funcionario[6]
+            })
+
+        return jsonify(funcionarios_data), 200
+    except Exception as e:
+        return jsonify({'msg': str(e)}), 500
+    finally:
+        cur.close()
+        conn.close()
+
+
+
+
+
+#Acesso a informações dos funcionários
+@app.route('/funcionarios/<int:funcionarios_id>', methods=['GET'])
+@verificacao_token
+def get_funcionario(funcionario_id):
+    schema = os.getenv("DB_SCHEMA")
+    query = f"SELECT * FROM {schema}.funcionarios WHERE id = %s"
+
+    con = Connection(
+            my_host=os.getenv('HOST'),
+            db_name=os.getenv('DB_NAME'),
+            my_user=os.getenv('USER'),
+            my_password=os.getenv('PASSWORD')
+        )
+    conn = con.con
+    cur = con.cur
+
+    try:
+        cur.execute(query, (funcionario_id,))
+        funcionario = cur.fetchone()
+
+        if not funcionario:
+            return jsonify({'msg': 'funcionario não encontrado'}), 404
+        
+        funcionario_data = {  'id': funcionario[0],
+            'nome_funcionario': funcionario[1],
+            'cargo': funcionario[2],
+            'empresa': funcionario[3],
+            'data_nascimento': funcionario[4],
+            'cpf': funcionario[5],
+            'situacao': funcionario[6]
+        }
+        return jsonify(funcionario_data), 200
+    except Exception as e:
+        return jsonify({'msg': str(e)}), 500
+    finally:
+        cur.close()
+        conn.close()
+    
 
 @app.route('/nova_compra', methods =['GET','POST'])
 def nova_compra():
