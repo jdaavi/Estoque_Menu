@@ -6,6 +6,7 @@ import os
 import requests
 import redis
 import dotenv
+from db import Connection
 
 dotenv.load_dotenv()
 
