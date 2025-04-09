@@ -119,6 +119,12 @@
                     tbody.innerHTML = '';
                     rows.forEach(row => tbody.appendChild(row));
                 });
+
+                document.addEventListener('DOMcontentLoaded', function() {
+                    const sortByDate = document.getElementById('sortByDate');
+                    sortByDate.value = 'asc';
+                    sortByDate.dispatchEvent(new Event('change'));
+                })
             </script>
 
         </div>

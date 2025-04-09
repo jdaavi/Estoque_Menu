@@ -87,27 +87,6 @@
             </table>
         </section>
 
-        <tbody id="tabelaProdutos">
-            {% for produto in produtos %}
-                <tr>
-                    <td>{{ produto.n_ordem }}</td>
-                    <td>{{ produto.data_compra }}</td>
-                    <td>{{ produto.entrega }}</td>
-                    <td>{{ produto.fornecedor }}</td>
-                    <td>R$ {{ produto.valor }}</td>
-                    <td>{{ produto.documento }}</td>
-                    <td>{{ produto.recebimento }}</td>
-                    <td>{{ produto.destino }}</td>
-                    <td>{{ produto.categoria }}</td>
-                    <td>{{ produto.valor_recebimento }}</td>
-                    <td>{{ produto.situacao }}</td>
-                    <td> 
-                        <!-- Suas ações aqui -->
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-
         <!-- Seção de configuração de páginas -->
         <section class="config-paginas">
             <div>
@@ -126,7 +105,11 @@
 
     <script>
         // simulação categorias
-        let situacao_compa = [{categoria:"Em aberto",categoria:"Em andamento",categoria:"Recebido"}]
+        let situacao_compra = [
+            {categoria: "Em aberto"},
+            {categoria: "Em andamento"},
+            {categoria: "Recebido"}
+        ];
         
         // Função de simulação de dados de produtos
         let produtos = [
@@ -143,11 +126,18 @@
         function paginarProdutos() {
             const totalPaginas = Math.ceil(produtos.length / itensPorPagina);
             const paginacao = document.getElementById('paginacao');
-            paginacao.innerHTML = ''; 
-
-            for (let i = 1; i <= totalPaginas; i++) {
+            paginacao.innerHTML = '';
+            
+            for (let i = 1; i<= totalPaginas; i++) {
                 let li = document.createElement('li');
-                li.innerHTML = `<button onclick="mudarPagina(${i})">${i}</button>`;
+                let button = document.createElement('button');
+                button.onclick = function () {
+                    mudarPagina(i)
+                };
+                if (i=== paginaAtual) {
+                    button.classList.add('active');
+                }
+                li.appendChild(button);
                 paginacao.appendChild(li);
             }
         }
@@ -205,7 +195,7 @@
                 produto.categoria.toLowerCase().includes(pesquisa) ||
                 produto.n_ordem.toLowerCase().includes(pesquisa)
             );
-            preencherTabela(produtosFiltrados);
+            preencherTabela(paginaAtual, produtosFiltrados);
         }
 
         // Funções de ações
@@ -234,6 +224,15 @@
         function toggleMenuFiltros() {
             document.getElementById("menu").classList.toggle("show");
         }
+
+        document.addEventListener('click', function(event) {
+            const menus = document.querySelector('.menu');
+            menus.forEach(menu => {
+                if (!menu.contains(event.target) && !event.target.closest('.menu-icon')) {
+                    menu.classList.remove('show'); 
+            }
+        });
+    });
 
     </script>
 

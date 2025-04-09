@@ -67,12 +67,12 @@
             produtos.forEach(produto => {
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${data_compra.sku}</td>
-                    <td>${item.sku}</td>
-                    <td>${destino.sku}</td>
-                    <td>${quantidade.sku}</td>
-                    <td>R$ ${preco.sku}</td>
-                    <td>R$ ${frete.sku}</td>
+                    <td>${produto.sku}</td>
+                    <td>${produto.item}</td>
+                    <td>${produto.destino}</td>
+                    <td>${produto.quantidade}</td>
+                    <td>${produto.preco}</td>
+                    <td>${produto.frete}</td>
                 `;
                 tabelaProdutos.appendChild(tr);
             });
@@ -103,9 +103,15 @@
 
         // Função de alterar produto (simulação)
         function alterarProduto() {
-            alert("Alterar produto (Função não implementada)");
-        }
-
+            const id = prompt("Digite o ID do produto para alterar:");
+            const produto = produtos.find(prod => prod.sku == id);
+            if (produto) {
+        // Você pode adicionar campos de edição ou abrir um formulário aqui
+        alert("Produto encontrado: " + produto.item);
+    } else {
+        alert("Produto não encontrado!");
+    }
+}
         // Função de excluir produto (simulação)
         function excluirProduto() {
             alert("Excluir produto (Função não implementada)");
@@ -113,8 +119,6 @@
 
         // Preencher a tabela inicialmente
         preencherTabela(produtos);
-
-        preencherTabela();
     </script>
 </body>
 </html>
