@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Empresa</title>
-    <link rel="stylesheet" href="/static/css/rh/empresas.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Cadastrar Empresa</h1>
-        <form action="{{ url_for('cadastrar_empresa') }}" method="POST">
+{% extends "rh/rh.html" %}
+
+{% block forms %}
+        <form action="{{ url_for('nova_empresa') }}" method="POST">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
 
@@ -21,6 +13,5 @@
 
             <button type="submit">Cadastrar</button>
         </form>
-    </div>
-</body>
-</html>
+ {% endblock %}
+
