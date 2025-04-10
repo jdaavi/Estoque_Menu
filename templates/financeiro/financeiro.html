@@ -5,47 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Financeira</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/financeiro/financeiro.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900 flex h-screen">
 
-    <div class="sidebar">
-        <div class="logo-container">
-            <img src="/static/img/Logo menu.png" alt="Logo da empresa" class="logo">
-        </div>
-        <a href="/inicio" class="btn-voltar">
-            <i class="fa fa-sign-out"></i> <span>Voltar</span>
+    <!-- Menu Lateral -->
+    <div class="sidebar bg-white shadow-md p-6 w-64 flex flex-col h-full">
+        <a href="/inicio" class="btn-voltar flex items-center text-red-600 mb-4 text-lg font-semibold">
+            <i class="fa fa-sign-out"></i> <span class="ml-2">Voltar</span>
         </a>
-        <a href="#">Visão de Competência</a>
-        <a href="#">A pagar</a>
-        <a href="#">A receber</a>
-        <a href="#">Relatórios</a>
-        <a href="#">Movimentações</a>
-        <a href="#">Fluxo de Caixa</a>
-        <a href="#">Configurações</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">Visão de Competência</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">A pagar</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">A receber</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">Relatórios</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">Movimentações</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">Fluxo de Caixa</a>
+        <a href="#" class="text-red-600 py-2 text-lg font-semibold">Configurações</a>
     </div>
 
-    <!-- Container Superior -->
-    <div class="finance-container">
-        <div class="finance-item">
-            <i class="ri-money-dollar-box-line"></i> <!-- Ícone de Entradas -->
-            <h3>Entradas</h3>
-            <p>R$ 10.000,00</p>
+    <!-- Área Principal -->
+    <div class="finance-container flex-1 p-6 overflow-y-auto">
+        <div class="flex gap-6 mb-6">
+            <div class="finance-item bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">
+                <i class="ri-money-dollar-box-line text-red-600 text-3xl mb-2"></i>
+                <h3 class="text-xl font-semibold text-gray-900">Entradas</h3>
+                <p class="text-2xl font-bold text-red-600">R$ 10.000,00</p>
+            </div>
+            <div class="finance-item bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">
+                <i class="ri-arrow-up-line text-red-600 text-3xl mb-2"></i>
+                <h3 class="text-xl font-semibold text-gray-900">Saídas</h3>
+                <p class="text-2xl font-bold text-red-600">R$ 3.000,00</p>
+            </div>
+            <div class="finance-item bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">
+                <i class="ri-bank-card-line text-red-600 text-3xl mb-2"></i>
+                <h3 class="text-xl font-semibold text-gray-900">Total em Caixa</h3>
+                <p class="text-2xl font-bold text-red-600">R$ 7.000,00</p>
+            </div>
         </div>
-        <div class="finance-item">
-            <i class="ri-arrow-up-line"></i> <!-- Ícone de Saídas -->
-            <h3>Saídas</h3>
-            <p>R$ 3.000,00</p>
-        </div>
-        <div class="finance-item">
-            <i class="ri-bank-card-line"></i> <!-- Ícone de Total em Caixa -->
-            <h3>Total em Caixa</h3>
-            <p>R$ 7.000,00</p>
-        </div>
-    </div>
 
-    <div class="nova-transacao">
-        <a href= "/transferencia" class="btn btn-primary">Nova Transferência</a>
+        <div class="nova-transacao flex justify-center mt-8">
+            <a href="/transferencia" class="btn btn-primary bg-red-700 text-white py-2 px-6 rounded-lg hover:bg-red-800 transition">Nova Transferência</a>
+        </div>
     </div>
 
     <script src="/js/financeiro.js"></script>

@@ -113,74 +113,127 @@ def atualizar_empresa(id_empresa, dados_atuais):
         return {"erro": f"Erro inesperado: {response_atualizar.status_code}"}
      
 
-# Página inicial (Login)
+
 @app.route('/')
 def index():
     return render_template('login/index.html')  # O HTML da página de login
 
-# Página de início (após login)
 @app.route('/inicio')
 @verificacao_token
 def inicio():
     return render_template('login/inicio.html')
 
-# Página de Estoque (após login)
+
+# Rotas do Estoque
 @app.route('/estoque')
 @verificacao_token
 def estoque():  
     return render_template('estoque/estoque.html')
 
-# Página Financeiro (após login)
+@app.route('/estoque/cadastro')
+@verificacao_token
+def cadastro():
+    return render_template('estoque/cadastro.html')
+
+@app.route('/estoque/produtos')
+@verificacao_token
+def analise_produtos():   
+    return render_template('estoque/produtos.html')
+
+
+# Rotas do Financeiro
 @app.route('/financeiro')
 @verificacao_token
 def financeiro():
     return render_template('financeiro/financeiro.html')
 
-@app.route('/transferencia')
+@app.route('/financeiro/transferencia')
 @verificacao_token
 def transferencia():
     return render_template('financeiro/transferencia.html')
 
-@app.route('/produtos')
-@verificacao_token
-def analise_produtos():   
-    return render_template('estoque/produtos.html')
 
+#Rotas do compras
 @app.route('/compras')
 @verificacao_token
 def compras():   
     return render_template('compras/compras.html')
 
-@app.route('/cadastro')
-@verificacao_token
-def cadastro():
-    return render_template('estoque/cadastro.html')
+@app.route('/compras/nova_compra', methods =['GET','POST'])
+def nova_compra():
+    if request.method == 'POST':
 
+        n_ordem = request.form['n_ordem']
+        data_compra = request.form['data_compra']
+        entrega = request.form['entrega']
+        fornecedor = request.form['fornecedor']
+        documento = request.form['documento']
+        recebimento = request.form['recebimento']
+        destino = request.form['destino']
+        valor = request.form['valor']
+        categoria = request.form['categoria']
+        situacao = request.form['situacao']
+        valor_recebimento = request.form['valor_recebimento']
+        situacao_compras = request.form['situacao_compras']
 
-@app.route('/usuario')
+        # Adicionando a nova compra à lista de produtos
+        nova_compra = {
+            "n_ordem": n_ordem,
+            "data_compra": data_compra,
+            "entrega": entrega,
+            "fornecedor": fornecedor,
+            "documento": documento,
+            "recebimento": recebimento,
+            "destino": destino,
+            "valor": valor,
+            "categoria": categoria,
+            "situacao": situacao,
+            "valor_recebimento": valor_recebimento,
+            "situacao_compras": situacao_compras
+        }
+        produtos.append(nova_compra)
+        return redirect(url_for('compras'))
+
+    return render_template('compras/nova_compra.html')
+
+#Rotas do Rh
+@app.route('/empresas')
 @verificacao_token
-def usuario():
-    return render_template('rh/rh.html')
+def empresas():
+    return render_template('rh/empresas.html')
 
 @app.route('/funcionario')
 @verificacao_token
 def funcionario():
     return render_template('rh/funcionarios.html')
 
+@app.route('/nova_empresa')
+@verificacao_token
+def nova_empresa():
+    return render_template('rh/nova_empresa.html')
+
 @app.route('/registro')
 @verificacao_token
 def registro():
     return render_template('rh/registro.html')
 
-# Logout (Sair)
+@app.route('/Rh')
+@verificacao_token
+def usuario():
+    return render_template('rh/rh.html')
+
+@app.route('/unidades')
+@verificacao_token
+def unidade():
+    return render_template('rh/unidades.html')
+
+
+#Rota Global / Sida e Login
 @app.route('/sair')
 def sair():
     session.clear()  # Limpa a sessão ao sair
     return redirect(url_for('index'))  # CORRIGIDO
- 
-@app.route('/listar_empresas')
 
-# Rota de Login
 @app.route('/login', methods=['POST'])
 def login():
     login = request.form['login']
@@ -223,42 +276,6 @@ def login():
         menssage = data.get('error', "Erro desconhecido")
         return jsonify({"error": menssage}), response.status_code     
 
-@app.route('/nova_compra', methods =['GET','POST'])
-def nova_compra():
-    if request.method == 'POST':
-
-        n_ordem = request.form['n_ordem']
-        data_compra = request.form['data_compra']
-        entrega = request.form['entrega']
-        fornecedor = request.form['fornecedor']
-        documento = request.form['documento']
-        recebimento = request.form['recebimento']
-        destino = request.form['destino']
-        valor = request.form['valor']
-        categoria = request.form['categoria']
-        situacao = request.form['situacao']
-        valor_recebimento = request.form['valor_recebimento']
-        situacao_compras = request.form['situacao_compras']
-
-        # Adicionando a nova compra à lista de produtos
-        nova_compra = {
-            "n_ordem": n_ordem,
-            "data_compra": data_compra,
-            "entrega": entrega,
-            "fornecedor": fornecedor,
-            "documento": documento,
-            "recebimento": recebimento,
-            "destino": destino,
-            "valor": valor,
-            "categoria": categoria,
-            "situacao": situacao,
-            "valor_recebimento": valor_recebimento,
-            "situacao_compras": situacao_compras
-        }
-        produtos.append(nova_compra)
-        return redirect(url_for('compras'))
-
-    return render_template('compras/nova_compra.html')
 
 # Inicia o servidor Flask
 if __name__ == '__main__':

@@ -1,0 +1,11 @@
+{% extendes rh/rh.html %}
+{% block forms %}
+<h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Unidades</h3>
+<form id="unidade-form" class="space-y-4">
+  <div>
+    <label for="unidade-name" class="block text-sm font-medium text-gray-700">Nome da Unidade:</label>
+    <input type="text" id="unidade-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+  </div>
+  <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
+</form>
+{% endblock %}

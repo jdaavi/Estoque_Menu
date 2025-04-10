@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresas Parceiras</title>
+    <link rel="stylesheet" href="/static/css/rh/empresas.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Empresas Parceiras</h1>
+        <a href="{{ url_for('cadastrar_empresa') }}" class="btn">Cadastrar Nova Empresa</a>
+
+        <div class="empresa-container">
+            {% for empresa in empresas %}
+            <div class="empresa-card">
+                <h3>{{ empresa[1] }}</h3>
+                <p><strong>CNPJ:</strong> {{ empresa[2] }}</p>
+                <p><strong>Email:</strong> {{ empresa[3] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

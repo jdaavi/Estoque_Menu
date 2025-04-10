@@ -1,130 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de RH</title>
-    <link rel="stylesheet" href="/static/css/rh/rh.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de RH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <!-- Menu Lateral -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>Gestão RH</h2>
-            </div>
-            <ul class="nav">
-                <li><a href="#" id="unidades">Unidades</a></li>
-                <li><a href="#" id="departamentos">Departamentos</a></li>
-                <li><a href="/funcionario" id="funcionaios">Funcionários</a></li>
-                <li><a href="/inicio" id="Sair" class="sair-button">Sair</a></li>
-            </ul>
-        </nav>
-        
-        <!-- Área Principal -->
-        <div class="main-content">
-            <div class="overview">
-                <h2>Visão Geral</h2>
-                <div class="overview-box">
-                    <h3>Unidades</h3>
-                    <p id="unidades-count">0</p>
-                </div>
-                <div class="overview-box">
-                    <h3>Departamentos</h3>
-                    <p id="departamentos-count">0</p>
-                </div>
-                <div class="overview-box">
-                    <h3>Funcionários</h3>
-                    <p id="funcionarios-count">0</p>
-                </div>
-            </div>
+<body class="bg-gray-100 text-gray-900">
 
-            <div id="form-area">
-                <!-- Formulários de Cadastro vão aparecer aqui -->
-            </div>
+  <div class="flex h-screen">
+    <!-- Menu Lateral -->
+    <nav class="w-64 bg-white shadow-md flex flex-col text-gray-900">
+      <div class="p-6 border-b border-gray-300 flex items-center justify-between">
+        <!-- Ícone de voltar -->
+        <a href="/inicio" title="Voltar" class="text-red-600 hover:text-red-700 text-2xl">
+          &#8592;
+        </a>
+      </div>
+      <ul class="flex-1 p-4 space-y-2">
+        <li>
+          <a href="#" id="unidades" class="block px-4 py-2 rounded hover:bg-red-100 transition">Unidades</a>
+        </li>
+        <li>
+          <a href="#" id="departamentos" class="block px-4 py-2 rounded hover:bg-red-100 transition">Departamentos</a>
+        </li>
+        <li>
+          <a href="/funcionario" id="funcionaios" class="block px-4 py-2 rounded hover:bg-red-100 transition">Funcionários</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Área Principal -->
+    <div class="flex-1 p-8 overflow-y-auto">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold mb-4 text-gray-900">Visão Geral</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-900">Unidades</h3>
+            <p id="unidades-count" class="text-2xl font-bold text-red-600 mt-2">0</p>
+          </div>
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-900">Departamentos</h3>
+            <p id="departamentos-count" class="text-2xl font-bold text-red-600 mt-2">0</p>
+          </div>
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-900">Funcionários</h3>
+            <p id="funcionarios-count" class="text-2xl font-bold text-red-600 mt-2">0</p>
+          </div>
         </div>
+      </div>
+
+      <!-- Área de Formulários -->
+      <div id="form-area" class="bg-white p-6 rounded-lg shadow">
+        <p class="text-gray-500">Selecione uma opção do menu para cadastro.</p>
+        {% block forms %} {% endblock %}
+      </div>
     </div>
+  </div>
 
-    <script src="/js/cadastro.js"></script>
+  <script>
+    function getCounts() {
+      fetch('/api/stats')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("unidades-count").textContent = data.unidades;
+          document.getElementById("departamentos-count").textContent = data.departamentos;
+          document.getElementById("funcionarios-count").textContent = data.funcionarios;
+        })
+        .catch(error => console.error('Erro ao carregar os dados de contagem:', error));
+    }
 
-    <script>
-        // Função para obter a contagem de unidades, departamentos e funcionários
-        function getCounts() {
-            fetch('/api/stats')  // Vamos supor que você tem um endpoint de API que retorna as contagens
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("unidades-count").textContent = data.unidades;
-                    document.getElementById("departamentos-count").textContent = data.departamentos;
-                    document.getElementById("funcionarios-count").textContent = data.funcionarios;
-                })
-                .catch(error => console.error('Erro ao carregar os dados de contagem:', error));
-        }
+    function loadForm(formType) {
+      let formArea = document.getElementById("form-area");
+      let formHTML = '';
 
-        // Função para carregar os formulários de cadastro
-        function loadForm(formType) {
-            let formArea = document.getElementById("form-area");
-            switch (formType) {
-                case 'unidades':
-                    formArea.innerHTML = `
-                        <h3>Cadastro de Unidades</h3>
-                        <form id="unidade-form">
-                            <label for="unidade-name">Nome da Unidade:</label>
-                            <input type="text" id="unidade-name" required>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    `;
-                    break;
-                case 'departamentos':
-                    formArea.innerHTML = `
-                        <h3>Cadastro de Departamentos</h3>
-                        <form id="departamento-form">
-                            <label for="departamento-name">Nome do Departamento:</label>
-                            <input type="text" id="departamento-name" required>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    `;
-                    break;
-                case 'funcionarios':
-                    formArea.innerHTML = `
-                        <h3>Cadastro de Funcionários</h3>
-                        <form id="funcionario-form">
-                            <label for="funcionario-name">Nome do Funcionário:</label>
-                            <input type="text" id="funcionario-name" required>
-                            <label for="funcionario-cargo">Cargo:</label>
-                            <input type="text" id="funcionario-cargo" required>
-                            <button type="submit">Cadastrar</button>
-                        </form>
-                    `;
-                    break;
-                default:
-                    formArea.innerHTML = '<p>Selecione uma opção do menu para cadastro.</p>';
-            }
-        }
+      if (formType === 'unidades') {
+        formHTML = `
+          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Unidades</h3>
+          <form id="unidade-form" class="space-y-4">
+            <div>
+              <label for="unidade-name" class="block text-sm font-medium text-gray-700">Nome da Unidade:</label>
+              <input type="text" id="unidade-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+            </div>
+            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
+          </form>
+        `;
+      } else if (formType === 'departamentos') {
+        formHTML = `
+          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Departamentos</h3>
+          <form id="departamento-form" class="space-y-4">
+            <div>
+              <label for="departamento-name" class="block text-sm font-medium text-gray-700">Nome do Departamento:</label>
+              <input type="text" id="departamento-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+            </div>
+            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
+          </form>
+        `;
+      } else if (formType === 'funcionarios') {
+        formHTML = `
+          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Funcionários</h3>
+          <form id="funcionario-form" class="space-y-4">
+            <div>
+              <label for="funcionario-name" class="block text-sm font-medium text-gray-700">Nome do Funcionário:</label>
+              <input type="text" id="funcionario-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+            </div>
+            <div>
+              <label for="funcionario-cargo" class="block text-sm font-medium text-gray-700">Cargo:</label>
+              <input type="text" id="funcionario-cargo" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+            </div>
+            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
+          </form>
+        `;
+      } else {
+        formHTML = '<p class="text-gray-500">Selecione uma opção do menu para cadastro.</p>';
+      }
 
-        // Função para manipular a navegação e mostrar o formulário correspondente
-        document.getElementById("unidades").addEventListener("click", function() {
-            loadForm("unidades");
-        });
+      formArea.innerHTML = formHTML;
+    }
 
-        document.getElementById("departamentos").addEventListener("click", function() {
-            loadForm("departamentos");
-        });
+    document.getElementById("unidades").addEventListener("click", () => loadForm("unidades"));
+    document.getElementById("departamentos").addEventListener("click", () => loadForm("departamentos"));
+    document.getElementById("funcionaios").addEventListener("click", () => loadForm("funcionarios"));
 
-        document.getElementById("funcionaios").addEventListener("click", function() {
-            loadForm("funcionarios");
-        });
-
-        // Função para simular a saída (logout)
-        document.getElementById("Sair").addEventListener("click", function() {
-            // Aqui você pode adicionar um comportamento de logout, como redirecionamento
-            window.location.href = '/login';  // Redireciona para a página de login
-        });
-
-        // Carregar as contagens ao iniciar a página
-        document.addEventListener("DOMContentLoaded", function() {
-            getCounts();
-        });
-    </script>
-
+    document.addEventListener("DOMContentLoaded", getCounts);
+  </script>
 </body>
 </html>
