@@ -113,7 +113,7 @@ def atualizar_empresa(id_empresa, dados_atuais):
         return {"erro": f"Erro inesperado: {response_atualizar.status_code}"}
      
 
-
+#Rota de Login / Saída
 @app.route('/')
 def index():
     return render_template('login/index.html')  # O HTML da página de login
@@ -122,6 +122,11 @@ def index():
 @verificacao_token
 def inicio():
     return render_template('login/inicio.html')
+
+@app.route('/sair')
+def sair():
+    session.clear()  # Limpa a sessão ao sair
+    return redirect(url_for('index'))  # CORRIGIDO
 
 
 # Rotas do Estoque
@@ -197,22 +202,22 @@ def nova_compra():
     return render_template('compras/nova_compra.html')
 
 #Rotas do Rh
-@app.route('/empresas')
+@app.route('/rh/empresas')
 @verificacao_token
 def empresas():
     return render_template('rh/empresas.html')
 
-@app.route('/funcionario')
+@app.route('/rh/funcionario')
 @verificacao_token
 def funcionario():
     return render_template('rh/funcionarios.html')
 
-@app.route('/nova_empresa')
+@app.route('/rh/nova_empresa')
 @verificacao_token
 def nova_empresa():
     return render_template('rh/nova_empresa.html')
 
-@app.route('/registro')
+@app.route('/rh/registro')
 @verificacao_token
 def registro():
     return render_template('rh/registro.html')
@@ -222,17 +227,12 @@ def registro():
 def usuario():
     return render_template('rh/rh.html')
 
-@app.route('/unidades')
+@app.route('/rh/unidades')
 @verificacao_token
 def unidade():
     return render_template('rh/unidades.html')
 
 
-#Rota Global / Sida e Login
-@app.route('/sair')
-def sair():
-    session.clear()  # Limpa a sessão ao sair
-    return redirect(url_for('index'))  # CORRIGIDO
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -277,6 +277,5 @@ def login():
         return jsonify({"error": menssage}), response.status_code     
 
 
-# Inicia o servidor Flask
 if __name__ == '__main__':
     app.run()

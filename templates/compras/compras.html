@@ -10,21 +10,20 @@
 <body class="bg-gray-100 text-gray-900 flex h-screen">
 
     <!-- Barra lateral -->
-    <aside class="sidebar bg-white shadow-md p-6 w-64 flex flex-col h-full">
+    <aside class="sidebar bg-white shadow-md p-6 w-48 flex flex-col h-full"> <!-- Largura reduzida para 48 -->
         <ul>
-            <li><a href="#" class="text-red-600 hover:text-red-700">Menu 01</a></li>
-            <li><a href="#" class="text-red-600 hover:text-red-700">Menu 02</a></li>
-            <li><a href="/produtos" class="text-red-600 hover:text-red-700">Produtos</a></li>
+            <li><a href="#" class="text-red-600">Menu 01</a></li>
+            <li><a href="#" class="text-red-600">Menu 02</a></li>
+            <li><a href="/estoque/produtos" class="text-red-600">Produtos</a></li>
         </ul>
 
-        <a href="/inicio" class="botao-voltar text-red-600 hover:text-red-700 mt-auto flex items-center">
+        <a href="/inicio" class="botao-voltar text-red-600 mt-auto flex items-center">
             <i class="fa fa-sign-out"></i> Sair
         </a>
     </aside>
 
     <!-- Conteúdo principal -->
     <main class="container flex-1 p-6 overflow-y-auto">
-
         <!-- Barra de ações -->
         <section class="filtro-acoes flex flex-wrap justify-between mb-6">
             <div class="pesquisa flex items-center gap-2">
@@ -36,7 +35,7 @@
 
             <!-- Menu de Filtros -->
             <div class="menu-container relative">
-                <button class="menu-icon text-red-600 hover:text-red-700 bg-gray-200 p-2 rounded-md" onclick="toggleMenuFiltros()">Filtros</button>
+                <button class="menu-icon text-red-600 bg-gray-200 p-2 rounded-md" onclick="toggleMenuFiltros()">Filtros</button>
                 <div id="menu" class="menu absolute hidden bg-white shadow-lg rounded-lg">
                     <button id="item-filtro" onclick="alert('Opção 1')" class="py-2 px-4 hover:bg-gray-200">Ordem de Pedido</button>
                     <button id="item-filtro" onclick="alert('Opção 2')" class="py-2 px-4 hover:bg-gray-200">Data da compra</button>
@@ -52,7 +51,7 @@
 
             <!-- Botões de ação: Nova Compra e Exportar -->
             <div class="acoes-principais flex gap-4">
-                <a href="/nova_compra">
+                <a href="/compras/nova_compra">
                     <button class="action-buttons bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">Nova Compra</button>
                 </a>
                 <button class="action-buttons bg-gray-300 text-gray-700 p-2 rounded-md hover:bg-gray-400 transition">Exportar</button>
@@ -151,7 +150,7 @@
 
             produtosPaginados.forEach(produto => {
                 let tr = document.createElement('tr');
-                tr.innerHTML = `
+                tr.innerHTML = ` 
                     <td class="py-2 px-4 border-b">${produto.n_ordem}</td>
                     <td class="py-2 px-4 border-b">${produto.data_compra}</td>
                     <td class="py-2 px-4 border-b">${produto.entrega}</td>
@@ -226,3 +225,4 @@
 
 </body>
 </html>
+
