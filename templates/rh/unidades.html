@@ -1,12 +1,25 @@
-{% extends rh/rh.html %}
+{% extends "rh/rh.html" %}
 
-{% block forms %}
+{% block title %}Cadastro de Unidades{% endblock %}
+
+{% block content %}
   <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Unidades</h3>
   <form id="unidade-form" class="space-y-4">
+    <!-- Nome da Unidade -->
     <div>
       <label for="unidade-name" class="block text-sm font-medium text-gray-700">Nome da Unidade:</label>
       <input type="text" id="unidade-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
     </div>
+
+    <!-- CNPJ -->
+    <div>
+      <label for="unidade-cnpj" class="block text-sm font-medium text-gray-700">CNPJ:</label>
+      <input type="text" id="unidade-cnpj" required pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" placeholder="00.000.000/0000-00"
+        class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+    </div>
+
+
+    <!-- Botão de Enviar -->
     <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
   </form>
 {% endblock %}

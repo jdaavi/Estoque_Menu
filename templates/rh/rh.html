@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestão de RH</title>
+  <title>{% block title %}Gestão de RH{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  {% block head %}{% endblock %}
 </head>
 <body class="bg-gray-100 text-gray-900">
 
@@ -12,7 +13,6 @@
     <!-- Menu Lateral -->
     <nav class="w-64 bg-white shadow-md flex flex-col text-gray-900">
       <div class="p-6 border-b border-gray-300 flex items-center justify-between">
-        <!-- Ícone de voltar -->
         <a href="/inicio" title="Voltar" class="text-red-600 hover:text-red-700 text-2xl">
           &#8592;
         </a>
@@ -25,7 +25,7 @@
           <a href="/rh/unidades" id="departamentos" class="block px-4 py-2 rounded hover:bg-red-100 transition">Unidades</a>
         </li>
         <li>
-          <a href="/rh/funcionario" id="funcionaios" class="block px-4 py-2 rounded hover:bg-red-100 transition">Funcionários</a>
+          <a href="/rh/funcionario" id="funcionarios" class="block px-4 py-2 rounded hover:bg-red-100 transition">Funcionários</a>
         </li>
       </ul>
     </nav>
@@ -50,10 +50,11 @@
         </div>
       </div>
 
-      <!-- Área de Formulários -->
+      <!-- Área de Formulários ou Conteúdo Específico -->
       <div id="form-area" class="bg-white p-6 rounded-lg shadow">
+        {% block content %}
         <p class="text-gray-500">Selecione uma opção do menu para cadastro.</p>
-        {% block forms %} {% endblock %}
+        {% endblock %}
       </div>
     </div>
   </div>
@@ -70,59 +71,9 @@
         .catch(error => console.error('Erro ao carregar os dados de contagem:', error));
     }
 
-    function loadForm(formType) {
-      let formArea = document.getElementById("form-area");
-      let formHTML = '';
-
-      if (formType === 'unidades') {
-        formHTML = `
-          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Unidades</h3>
-          <form id="unidade-form" class="space-y-4">
-            <div>
-              <label for="unidade-name" class="block text-sm font-medium text-gray-700">Nome da Unidade:</label>
-              <input type="text" id="unidade-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
-            </div>
-            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
-          </form>
-        `;
-      } else if (formType === 'departamentos') {
-        formHTML = `
-          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Departamentos</h3>
-          <form id="departamento-form" class="space-y-4">
-            <div>
-              <label for="departamento-name" class="block text-sm font-medium text-gray-700">Nome do Departamento:</label>
-              <input type="text" id="departamento-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
-            </div>
-            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
-          </form>
-        `;
-      } else if (formType === 'funcionarios') {
-        formHTML = `
-          <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Funcionários</h3>
-          <form id="funcionario-form" class="space-y-4">
-            <div>
-              <label for="funcionario-name" class="block text-sm font-medium text-gray-700">Nome do Funcionário:</label>
-              <input type="text" id="funcionario-name" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
-            </div>
-            <div>
-              <label for="funcionario-cargo" class="block text-sm font-medium text-gray-700">Cargo:</label>
-              <input type="text" id="funcionario-cargo" required class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
-            </div>
-            <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 transition">Cadastrar</button>
-          </form>
-        `;
-      } else {
-        formHTML = '<p class="text-gray-500">Selecione uma opção do menu para cadastro.</p>';
-      }
-
-      formArea.innerHTML = formHTML;
-    }
-
-    document.getElementById("unidades").addEventListener("click", () => loadForm("unidades"));
-    document.getElementById("departamentos").addEventListener("click", () => loadForm("departamentos"));
-    document.getElementById("funcionaios").addEventListener("click", () => loadForm("funcionarios"));
-
     document.addEventListener("DOMContentLoaded", getCounts);
   </script>
+
+  {% block scripts %}{% endblock %}
 </body>
 </html>

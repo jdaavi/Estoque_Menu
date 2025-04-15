@@ -210,17 +210,36 @@ def empresas():
 @app.route('/rh/funcionario')
 @verificacao_token
 def funcionario():
-    return render_template('rh/funcionarios.html')
+    return render_template('rh/funcionario.html')
+
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(__name__)
+
+@app.route('/cadastrar-funcionario', methods=['GET', 'POST'])
+def cadastrar_funcionario():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        setor = request.form['Setor']
+        email = request.form['email']
+        telefone = request.form['telefone']
+        cpf = request.form['cpf']
+        data_nascimento = request.form['data_nascimento']
+        cargo = request.form['cargo']
+        data_contrato = request.form['data_contrato']
+
+        # Aqui você pode salvar os dados em um banco de dados
+        print(f"Funcionário cadastrado: {nome}, {setor}, {email}, {telefone}, {cpf}, {data_nascimento}, {cargo}, {data_contrato}")
+
+        return redirect(url_for('cadastrar_funcionario'))  # Redireciona após o POST
+
+    return render_template('rh/funcionario.html')
+
 
 @app.route('/rh/nova_empresa')
 @verificacao_token
 def nova_empresa():
     return render_template('rh/nova_empresa.html')
-
-@app.route('/rh/registro')
-@verificacao_token
-def registro():
-    return render_template('rh/registro.html')
 
 @app.route('/Rh')
 @verificacao_token

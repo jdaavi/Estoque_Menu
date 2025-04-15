@@ -1,17 +1,35 @@
 {% extends "rh/rh.html" %}
 
-{% block forms %}
-        <form action="{{ url_for('nova_empresa') }}" method="POST">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+{% block title %}Cadastro de Empresa{% endblock %}
 
-            <label for="cnpj">CNPJ:</label>
-            <input type="text" id="cnpj" name="cnpj" required>
+{% block content %}
+  <h3 class="text-xl font-bold mb-4 text-gray-900">Cadastro de Empresa</h3>
+  <form action="{{ url_for('nova_empresa') }}" method="POST" class="space-y-4">
+    <!-- Nome -->
+    <div>
+      <label for="nome" class="block text-sm font-medium text-gray-700">Nome:</label>
+      <input type="text" id="nome" name="nome" required
+             class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+    </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+    <!-- CNPJ -->
+    <div>
+      <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ:</label>
+      <input type="text" id="cnpj" name="cnpj" required placeholder="00.000.000/0000-00"
+             class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+    </div>
 
-            <button type="submit" class="bg-red-600 text-white font-semibold py-2  px-4 rounded-md shadow hover: bg-red-700 transition duration-200">Cadastrar</button>
-        </form>
- {% endblock %}
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+      <input type="email" id="email" name="email" required
+             class="w-full border border-gray-300 bg-gray-50 text-gray-900 rounded p-2 focus:ring-2 focus:ring-red-500 focus:outline-none">
+    </div>
 
+    <!-- Botão -->
+    <button type="submit"
+            class="bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow hover:bg-red-700 transition duration-200">
+      Cadastrar
+    </button>
+  </form>
+{% endblock %}
