@@ -207,16 +207,7 @@ def nova_compra():
 def empresas():
     return render_template('rh/empresas.html')
 
-@app.route('/rh/funcionario')
-@verificacao_token
-def funcionario():
-    return render_template('rh/funcionario.html')
-
-from flask import Flask, render_template, request, redirect, url_for
-
-app = Flask(__name__)
-
-@app.route('/cadastrar-funcionario', methods=['GET', 'POST'])
+@app.route('/rh/cadastrar-funcionario', methods=['GET', 'POST'])
 def cadastrar_funcionario():
     if request.method == 'POST':
         nome = request.form['nome']
