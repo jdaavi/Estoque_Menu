@@ -1,228 +1,73 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Compras</title>
-    <link rel="stylesheet" href="/static/css/compras/compras.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900 flex h-screen">
+{% extends "estoque/base_estoque.html" %}
 
-    <!-- Barra lateral -->
-    <aside class="sidebar bg-white shadow-md p-6 w-48 flex flex-col h-full"> <!-- Largura reduzida para 48 -->
-        <ul>
-            <li><a href="#" class="text-red-600">Menu 01</a></li>
-            <li><a href="#" class="text-red-600">Menu 02</a></li>
-            <li><a href="/estoque/produtos" class="text-red-600">Produtos</a></li>
-        </ul>
+{% block title %}Menu Compras{% endblock %}
 
-        <a href="/inicio" class="botao-voltar text-red-600 mt-auto flex items-center">
-            <i class="fa fa-sign-out"></i> Sair
-        </a>
-    </aside>
+{% block content %}
+<main class="container flex-1 p-6 overflow-y-auto">
+    <!-- Barra de ações -->
+    <section class="filtro-acoes flex flex-wrap justify-between mb-6">
+        <div class="pesquisa flex items-center gap-2">
+            <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto" class="p-2 border border-gray-300 rounded-md">
+            <button onclick="pesquisarProduto()" class="lupa bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">
+                <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
+            </button>
+        </div>
 
-    <!-- Conteúdo principal -->
-    <main class="container flex-1 p-6 overflow-y-auto">
-        <!-- Barra de ações -->
-        <section class="filtro-acoes flex flex-wrap justify-between mb-6">
-            <div class="pesquisa flex items-center gap-2">
-                <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto" class="p-2 border border-gray-300 rounded-md">
-                <button onclick="pesquisarProduto()" class="lupa bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">
-                    <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
-                </button>
+        <!-- Menu de Filtros -->
+        <div class="menu-container relative">
+            <button class="menu-icon text-red-600 bg-gray-200 p-2 rounded-md" onclick="toggleMenuFiltros()">Filtros</button>
+            <div id="menu" class="menu absolute hidden bg-white shadow-lg rounded-lg">
+                <button id="item-filtro" onclick="alert('Opção 1')" class="py-2 px-4 hover:bg-gray-200">Ordem</button>
+                <button id="item-filtro" onclick="alert('Opção 2')" class="py-2 px-4 hover:bg-gray-200">Data da compra</button>
+                <button id="item-filtro" onclick="alert('Opção 4')" class="py-2 px-4 hover:bg-gray-200">Previsão de Entrega</button>
+                <button id="item-filtro" onclick="alert('Opção 5')" class="py-2 px-4 hover:bg-gray-200">Fornecedor</button>
+                <button id="item-filtro" onclick="alert('Opção 6')" class="py-2 px-4 hover:bg-gray-200">Data de Recebimento</button>
+                <button id="item-filtro" onclick="alert('Opção 7')" class="py-2 px-4 hover:bg-gray-200">Destino</button>
+                <button id="item-filtro" onclick="alert('Opção 8')" class="py-2 px-4 hover:bg-gray-200">Categoria</button>
+                <button id="item-filtro" onclick="alert('Opção 9')" class="py-2 px-4 hover:bg-gray-200">Situação do pedido</button>
+                <button id="item-filtro" onclick="alert('Opção 10')" class="py-2 px-4 hover:bg-gray-200">Situação da entrega</button>
             </div>
+        </div>
 
-            <!-- Menu de Filtros -->
-            <div class="menu-container relative">
-                <button class="menu-icon text-red-600 bg-gray-200 p-2 rounded-md" onclick="toggleMenuFiltros()">Filtros</button>
-                <div id="menu" class="menu absolute hidden bg-white shadow-lg rounded-lg">
-                    <button id="item-filtro" onclick="alert('Opção 1')" class="py-2 px-4 hover:bg-gray-200">Ordem de Pedido</button>
-                    <button id="item-filtro" onclick="alert('Opção 2')" class="py-2 px-4 hover:bg-gray-200">Data da compra</button>
-                    <button id="item-filtro" onclick="alert('Opção 4')" class="py-2 px-4 hover:bg-gray-200">Previsão de Entrega</button>
-                    <button id="item-filtro" onclick="alert('Opção 5')" class="py-2 px-4 hover:bg-gray-200">Fornecedor</button>
-                    <button id="item-filtro" onclick="alert('Opção 6')" class="py-2 px-4 hover:bg-gray-200">Data de Recebimento</button>
-                    <button id="item-filtro" onclick="alert('Opção 7')" class="py-2 px-4 hover:bg-gray-200">Destino</button>
-                    <button id="item-filtro" onclick="alert('Opção 8')" class="py-2 px-4 hover:bg-gray-200">Categoria</button>
-                    <button id="item-filtro" onclick="alert('Opção 9')" class="py-2 px-4 hover:bg-gray-200">Situação do pedido</button>
-                    <button id="item-filtro" onclick="alert('Opção 10')" class="py-2 px-4 hover:bg-gray-200">Situação da entrega</button>
-                </div>
-            </div>
+        <!-- Botões de ação: Nova Compra e Exportar -->
+        <div class="acoes-principais flex gap-4">
+            <button class="action-buttons bg-gray-300 text-gray-700 p-2 rounded-md hover:bg-gray-400 transition">Exportar</button>
+        </div>
+    </section>
 
-            <!-- Botões de ação: Nova Compra e Exportar -->
-            <div class="acoes-principais flex gap-4">
-                <a href="/compras/nova_compra">
-                    <button class="action-buttons bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">Nova Compra</button>
-                </a>
-                <button class="action-buttons bg-gray-300 text-gray-700 p-2 rounded-md hover:bg-gray-400 transition">Exportar</button>
-            </div>
-        </section>
+    <!-- Tabela de produtos -->
+    <section class="tabela-produtos">
+        <table class="table-auto w-full bg-white shadow-md rounded-md">
+            <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="py-2 px-4 border-b">Ordem</th>
+                    <th class="py-2 px-4 border-b">Data da Compra</th>
+                    <th class="py-2 px-4 border-b">Previsão Entrega</th>
+                    <th class="py-2 px-4 border-b">Fornecedor</th>
+                    <th class="py-2 px-4 border-b">Valor Compra</th>
+                    <th class="py-2 px-4 border-b">N Fiscal</th>
+                    <th class="py-2 px-4 border-b">Data Recebimento</th>
+                    <th class="py-2 px-4 border-b">Destino</th>
+                    <th class="py-2 px-4 border-b">Categoria</th>
+                    <th class="py-2 px-4 border-b">Valor Recebimento</th>
+                    <th class="py-2 px-4 border-b">Situação</th>
+                    <th class="py-2 px-4 border-b"></th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProdutos">
+                <!-- Dados preenchidos dinamicamente -->
+            </tbody>
+        </table>
+    </section>
 
-        <!-- Tabela de produtos -->
-        <section class="tabela-produtos">
-            <table class="table-auto w-full bg-white shadow-md rounded-md">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-700">
-                        <th class="py-2 px-4 border-b">Ordem</th>
-                        <th class="py-2 px-4 border-b">Data da Compra</th>
-                        <th class="py-2 px-4 border-b">Previsão de Entrega</th>
-                        <th class="py-2 px-4 border-b">Fornecedor</th>
-                        <th class="py-2 px-4 border-b">Valor da Compra</th>
-                        <th class="py-2 px-4 border-b">N Fiscal</th>
-                        <th class="py-2 px-4 border-b">Data Recebimento</th>
-                        <th class="py-2 px-4 border-b">Destino</th>
-                        <th class="py-2 px-4 border-b">Categoria</th>
-                        <th class="py-2 px-4 border-b">Valor Recebimento</th>
-                        <th class="py-2 px-4 border-b">Situação</th>
-                        <th class="py-2 px-4 border-b"></th>
-                    </tr>
-                </thead>
-                <tbody id="tabelaProdutos">
-                    <!-- Dados preenchidos dinamicamente -->
-                </tbody>
-            </table>
-        </section>
+    <!-- Configuração de botões de paginação -->
+    <section class="config-button mt-6">
+        <div class="paginacao-container">
+            <ul id="paginacao" class="flex gap-2">
+                <!-- Botões de paginação -->
+            </ul>
+        </div>
+    </section>
+</main>
 
-        <!-- Seção de configuração de páginas -->
-        <section class="config-paginas mt-6">
-            <div class="flex items-center gap-2">
-                <input type="text" contenteditable="10" class="border border-gray-300 p-2 rounded-md">
-                <button type="button" class="bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition">ok</button>
-            </div>
-        </section>
-
-        <!-- Configuração de botões de paginação -->
-        <section class="config-button mt-6">
-            <div class="paginacao-container">
-                <ul id="paginacao" class="flex gap-2">
-                    <!-- Botões de paginação -->
-                </ul>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // simulação categorias
-        let situacao_compra = [
-            {categoria: "Em aberto"},
-            {categoria: "Em andamento"},
-            {categoria: "Recebido"}
-        ];
-
-        // Função de simulação de dados de produtos
-        let produtos = [
-            { n_ordem: "038", data_compra: "02/03/2025", entrega: "05/02/2025", fornecedor: "Nagaura", documento: "nfe-324", recebimento: "06/02/2025", destino: "Aldeota", valor: "45,000.00", categoria: "Hortifruti", situacao: "Entregue", valor_recebimento: "250.00", situacao_compras:"Em aberto" },
-            { n_ordem: "039", data_compra: "03/03/2025", entrega: "06/02/2025", fornecedor: "Nagaura", documento: "nfe-123456", recebimento: "07/02/2025", destino: "Aldeota", valor: "250.00", categoria: "Hortifruti", situacao: "Entregue", valor_recebimento: "250.00", situacao_compras:"Em aberto" },
-        ];
-
-        // Preenchimento inicial da tabela
-        const itensPorPagina = 10; 
-        let paginaAtual = 1;
-
-        // Função para separar os produtos em páginas
-        function paginarProdutos() {
-            const totalPaginas = Math.ceil(produtos.length / itensPorPagina);
-            const paginacao = document.getElementById('paginacao');
-            paginacao.innerHTML = '';
-            
-            for (let i = 1; i<= totalPaginas; i++) {
-                let li = document.createElement('li');
-                let button = document.createElement('button');
-                button.onclick = function () {
-                    mudarPagina(i)
-                };
-                if (i=== paginaAtual) {
-                    button.classList.add('active');
-                }
-                li.appendChild(button);
-                paginacao.appendChild(li);
-            }
-        }
-
-        // Função para preencher a tabela com base na página
-        function preencherTabela(pagina) {
-            const tabelaProdutos = document.getElementById('tabelaProdutos');
-            tabelaProdutos.innerHTML = '';
-
-            const inicio = (pagina - 1) * itensPorPagina;
-            const fim = inicio + itensPorPagina;
-            const produtosPaginados = produtos.slice(inicio, fim);
-
-            produtosPaginados.forEach(produto => {
-                let tr = document.createElement('tr');
-                tr.innerHTML = ` 
-                    <td class="py-2 px-4 border-b">${produto.n_ordem}</td>
-                    <td class="py-2 px-4 border-b">${produto.data_compra}</td>
-                    <td class="py-2 px-4 border-b">${produto.entrega}</td>
-                    <td class="py-2 px-4 border-b">${produto.fornecedor}</td>
-                    <td class="py-2 px-4 border-b">R$ ${produto.valor}</td>
-                    <td class="py-2 px-4 border-b">${produto.documento}</td>
-                    <td class="py-2 px-4 border-b">${produto.recebimento}</td>
-                    <td class="py-2 px-4 border-b">${produto.destino}</td>
-                    <td class="py-2 px-4 border-b">${produto.categoria}</td>
-                    <td class="py-2 px-4 border-b">${produto.valor_recebimento}</td>
-                    <td class="py-2 px-4 border-b">${produto.situacao}</td>
-                    <td class="py-2 px-4 border-b">
-                        <div class="menu-container">
-                            <button class="menu-icon bg-gray-300 text-gray-700 p-2 rounded-md" onclick="toggleMenu(event)">&#x22EE;</button>
-                            <div id="menu" class="menu hidden bg-white shadow-lg rounded-lg">
-                                <button onclick="alterarSituacao()" class="py-2 px-4 hover:bg-gray-200">Alterar compra</button>
-                                <button onclick="clonarCompra()" class="py-2 px-4 hover:bg-gray-200">Clonar compra</button>
-                                <button onclick="enviar()" class="py-2 px-4 hover:bg-gray-200">Enviar ao Financeiro</button>
-                                <button onclick="excluirProduto()" class="py-2 px-4 hover:bg-gray-200">Excluir compra</button>
-                            </div>
-                        </div>
-                    </td>
-                `;
-                tabelaProdutos.appendChild(tr);
-            });
-        }
-
-        // Função para mudar de página
-        function mudarPagina(pagina) {
-            paginaAtual = pagina;
-            preencherTabela(paginaAtual);
-        }
-
-        // Pesquisa de produto
-        function pesquisarProduto() {
-            const pesquisa = document.getElementById("pesquisaProduto").value.toLowerCase();
-            const produtosFiltrados = produtos.filter(produto => 
-                produto.fornecedor.toLowerCase().includes(pesquisa) || 
-                produto.categoria.toLowerCase().includes(pesquisa) ||
-                produto.n_ordem.toLowerCase().includes(pesquisa)
-            );
-            preencherTabela(paginaAtual, produtosFiltrados);
-        }
-
-        // Funções de ações
-        function alterarSituacao() { alert("Alterar situação (Função não implementada)"); }
-        function clonarCompra() { alert("Clonar compra (Função não implementada)"); }
-        function enviar() { alert("Enviar (Função não implementada)"); }
-        function excluirProduto() { alert("Excluir produto (Função não implementada)"); }
-
-        // Inicializa a tabela e a paginação
-        window.onload = () => {
-            paginarProdutos();
-            preencherTabela(paginaAtual);
-        };
-
-        // Função para alternar o menu ao clicar no ícone de três pontos
-        function toggleMenu(event) {
-            const menu = event.target.closest('.menu-container').querySelector('.menu');
-            const allMenus = document.querySelectorAll('.menu');
-            allMenus.forEach(m => {
-                if (m !== menu) m.classList.remove('show');
-            });
-            menu.classList.toggle('show');
-        }
-
-        // Função para alternar filtros
-        function toggleMenuFiltros() {
-            document.getElementById("menu").classList.toggle("show");
-        }
-    </script>
-
-</body>
-</html>
-
+{% endblock %}

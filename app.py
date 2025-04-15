@@ -133,7 +133,7 @@ def sair():
 @app.route('/estoque')
 @verificacao_token
 def estoque():  
-    return render_template('estoque/estoque.html')
+    return render_template('estoque/visao_geral.html')
 
 @app.route('/estoque/cadastro')
 @verificacao_token

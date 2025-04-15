@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Estoque{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="h-screen flex overflow-hidden bg-gray-100">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white text-black p-4 flex flex-col h-screen fixed left-0 top-0 shadow-md">
+        <ul class="space-y-4 mt-8">
+            <li><a href="/estoque" class="block hover:bg-red-100 p-2 rounded">Visão geral</a></li>
+            <li><a href="#" class="block hover:bg-red-100 p-2 rounded">Inventário</a></li>
+            <li><a href="/estoque/produtos" class="block hover:bg-red-100 p-2 rounded">Produtos</a></li>
+            <li><a href="#" class="block hover:bg-red-100 p-2 rounded">Relatórios</a></li>
+            <li><a href="/compras" class="block hover:bg-red-100 p-2 rounded">Compras</a></li>
+            <li><a href="#" class="block hover:bg-red-100 p-2 rounded">Cadastro</a></li>
+        </ul>
+        <a href="/inicio" class="mt-auto text-black hover:text-red-400 flex items-center p-2">
+            <i class="fa fa-sign-out mr-2"></i>Sair
+        </a>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="ml-64 w-full p-6 overflow-y-auto">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,124 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Produtos</title>
-    <link rel="stylesheet" href="/static/css/estoque/produto.css">
-</head>
-<body>
-    <div class="container">
+{% extends "estoque/base_estoque.html" %}
 
-        <div class="botao-voltar">
-            <a href="/compras" class="botao-voltar-link">Voltar</a>
-        </div>
-    
-        <!-- Cabeçalho e barra de pesquisa -->
-        <div class="pesquisa">
-            <div class="campo-pesquisa">
-                <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto">
-                <button onclick="pesquisarProduto()" class="lupa">
-                    <img src="https://img.icons8.com/ios/452/search.png" alt="Lupa" width="20">
-                </button>
-            </div>
-            <div class="campo-id">
-                <input type="text" id="produtoId" placeholder="Pesquisar por ID">
-                <button onclick="confirmarPesquisa()">Confirmar</button>
-            </div>
-        </div>
+{% block title %}Análise de Produtos{% endblock %}
 
-        <!-- Tabela de produtos -->
-        <div class="tabela-produtos">
-            <table>
-                <thead>
-                    <tr>
-                        <th>SKU</th>
-                        <th>Item</th>
-                        <th>Destino</th>
-                        <th>Qtd saida</th>
-                        <th>Preço de venda</th>
-                        <th>Frete</th>
+{% block content %}
+<h1 class="text-3xl font-bold mb-6 text-gray-800">Análise de Produtos</h1>
+
+<div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+    <div class="flex gap-4">
+        <div class="flex items-center border border-gray-300 rounded px-2">
+            <input type="text" id="pesquisaProduto" placeholder="Pesquisar Produto" class="p-2">
+        </div>
+    </div>
+</div>
+
+<!-- Formulário de produtos -->
+<section class="bg-white p-4 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Produtos Cadastrados</h2>
+
+    <!-- Tabela de produtos -->
+    <div class="overflow-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="p-4 text-left">Id</th>
+                    <th class="p-4 text-left">Nome do Produto</th>
+                    <th class="p-4 text-left">Marca</th>
+                    <th class="p-4 text-left">Categoria</th>
+                    <th class="p-4 text-left">Medida</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProdutos">
+                {% for produto in produtos %}
+                    <tr class="produto">
+                        <td class="p-4">{{ produto.nome }}</td>
+                        <td class="p-4">{{ produto.categoria }}</td>
+                        <td class="p-4">{{ produto.preco }}</td>
+                        <td class="p-4">{{ produto.quantidade }}</td>
                     </tr>
-                </thead>
-                <tbody id="tabelaProdutos">
-                    <!-- Dados da tabela serão preenchidos dinamicamente -->
-                </tbody>
-            </table>
-        </div>
-        
-    <div class="botoes-acao">
-        <button onclick="cadastrarProduto()">Cadastrar</button>
-        <button onclick="alterarProduto()">Alterar</button>
-        <button onclick="excluirProduto()">Excluir</button>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</section>
 
-    </div>
-    <script>
-        // Simulação de dados de produtos
-        let produtos = [
-        { sku: 1, data_compra: "02/03/2025", item: "Batata bolinha", destino: "Sul", quantidade: "30 unidades", preco:"250.00", frete: "45.00", destino: "Aldeota", valor: "250.00"},
-        
-        ];
+<script>
+    // Função para filtrar produtos com base na pesquisa
+    document.getElementById('pesquisaProduto').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const produtos = document.querySelectorAll('.produto');
 
-        // Função para preencher a tabela com os produtos
-        function preencherTabela(produtos) {
-            const tabelaProdutos = document.getElementById('tabelaProdutos');
-            tabelaProdutos.innerHTML = ''; // Limpa a tabela antes de adicionar os novos dados
-            produtos.forEach(produto => {
-                let tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${produto.sku}</td>
-                    <td>${produto.item}</td>
-                    <td>${produto.destino}</td>
-                    <td>${produto.quantidade}</td>
-                    <td>${produto.preco}</td>
-                    <td>${produto.frete}</td>
-                `;
-                tabelaProdutos.appendChild(tr);
-            });
-        }
+        produtos.forEach(function(produto) {
+            const nome = produto.querySelector('td:nth-child(1)').textContent.toLowerCase();
+            const categoria = produto.querySelector('td:nth-child(2)').textContent.toLowerCase();
 
-        // Função de pesquisa por nome
-        function pesquisarProduto() {
-            const pesquisa = document.getElementById("pesquisaProduto").value.toLowerCase();
-            const produtosFiltrados = produtos.filter(produto => produto.nome.toLowerCase().includes(pesquisa));
-            preencherTabela(produtosFiltrados);
-        }
-
-        // Função de pesquisa por ID
-        function confirmarPesquisa() {
-            const id = document.getElementById("produtoId").value;
-            const produto = produtos.find(prod => prod.id == id);
-            if (produto) {
-                preencherTabela([produto]);
+            if (nome.includes(searchTerm) || categoria.includes(searchTerm)) {
+                produto.style.display = '';
             } else {
-                alert("Produto não encontrado!");
+                produto.style.display = 'none';
             }
-        }
+        });
+    });
+</script>
 
-        // Função de cadastrar produto (simulação)
-        function cadastrarProduto() {
-            alert("Cadastrar produto (Função não implementada)");
-        }
-
-        // Função de alterar produto (simulação)
-        function alterarProduto() {
-            const id = prompt("Digite o ID do produto para alterar:");
-            const produto = produtos.find(prod => prod.sku == id);
-            if (produto) {
-        // Você pode adicionar campos de edição ou abrir um formulário aqui
-        alert("Produto encontrado: " + produto.item);
-    } else {
-        alert("Produto não encontrado!");
-    }
-}
-        // Função de excluir produto (simulação)
-        function excluirProduto() {
-            alert("Excluir produto (Função não implementada)");
-        }
-
-        // Preencher a tabela inicialmente
-        preencherTabela(produtos);
-    </script>
-</body>
-</html>
+{% endblock %}
